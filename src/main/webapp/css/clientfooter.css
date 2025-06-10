@@ -1,0 +1,36 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 4, 2025, 12:07:40 PM
+    Author     : hoang
+*/
+footer {
+    background-color: #f4a261;
+    width: 100%;              /* Đảm bảo footer chiếm toàn bộ chiều rộng */
+    margin: 0;                /* Loại bỏ khoảng trắng bên ngoài */
+    padding: 10px 0;          /* Giữ padding để nội dung không sát mép */
+    box-sizing: border-box;   /* Đảm bảo padding không làm tăng kích thước */
+    text-align: center;       /* Căn giữa nội dung */
+}
+
+footer div {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #000;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Đảm bảo body không gây ra khoảng trắng */
+body {
+    margin: 0;
+    padding: 0;
+}

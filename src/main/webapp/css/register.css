@@ -1,0 +1,132 @@
+/* File: style.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fef1db;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.left-panel {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+}
+.left-panel img {
+    max-width: 90%;
+    height: auto;
+}
+
+.slogan {
+    color: #f29200;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.right-panel {
+    flex: 1;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    max-width: 380px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-form h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.register-form input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.register-form input:focus {
+    border-color: #f9b35e;
+}
+
+.enter-btn {
+    background-color: #f9b35e;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.enter-btn:hover {
+    background-color: #e49e47;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.fb-btn, .google-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fb-btn {
+    background-color: #3b5998;
+}
+
+.google-btn {
+    background-color: #db4437;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.login-link a {
+    color: #ff5722;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
