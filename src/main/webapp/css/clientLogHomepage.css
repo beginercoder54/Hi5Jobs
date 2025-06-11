@@ -1,0 +1,171 @@
+body {
+    background-color: #fef1db;
+    margin: 0;
+    padding: 0;
+}
+
+.header-container {
+    background-color: white;
+    padding: 8px 0;
+    width: 100%;
+    max-width: 1475px; /* Giới hạn chiều rộng tối đa và căn giữa */
+    margin: 0 auto;
+    margin-top:10px   ; /* Căn giữa khung trắng */
+    border-radius: 40px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.header-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 8px; /* Giảm từ 16px xuống 8px để thu hẹp khoảng cách bên trái và phải */
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-section img {
+    height: 32px;
+}
+
+.submit-cv-text {
+    color: #2a2a80;
+    font-size: 16px;
+    gap: 16px;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #fff0db;
+    border-radius: 24px;
+    padding: 8px 12px;
+    gap: 16px;
+}
+
+.search-bar img {
+    height: 16px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #000;
+    font-size: 14px;
+    min-width: 0;
+}
+
+.dropdown {
+    border: 1px solid #dcdcdc;
+    border-radius: 24px;
+    padding: 4px 16px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown .label {
+    color: #2a2a80;
+    margin-right: 4px;
+}
+
+.dropdown .value {
+    color: orange;
+}
+
+.recruiter-section {
+    border: 1px solid orange;
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: #2a2a80;
+    font-weight: bold;
+    white-space: nowrap;
+    gap: 16px;
+    margin-left: 10px;
+}
+
+
+.image-header {
+    padding: 8px 0;
+    width: 100%;
+    max-width: 1300px; /* Phù hợp với thanh navbar */
+    margin: 0 auto;
+    text-align: center;
+}
+.image-header img {
+    width: 100%;       /* Đảm bảo ảnh chiếm đủ chiều rộng container */
+    height: auto;
+    display: block;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* khoảng cách giữa menu và avatar */
+    margin-right: 20px; /* khoảng cách với nút For Recruiters */
+    margin-left: 20px;
+}
+
+.menu-icon,
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fee9cd; /* nền cam nhạt giống hình 1 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-icon img{
+     width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.menu-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    z-index: 999;
+}
+
+.menu-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.menu-dropdown a:hover {
+    background-color: #f2f2f2;
+}

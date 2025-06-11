@@ -53,6 +53,6 @@
         </div> 
     </div>
     <div class="image-header">
-        <img src="${pageContext.request.contextPath}/image/imageheader.png" alt="imageheader">
+        <img s<rc="${pageContext.request.contextPath}/image/imageheader.png" alt="imageheader">
     </div>
 </body>

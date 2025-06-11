@@ -1,0 +1,173 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+.cta-button {
+    margin: 5px 0;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: orange;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.consultant-support {
+    background-color: #f3f3f3;
+    padding: 30px 0;
+}
+
+.consultants {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.consultant img {
+    width: 100px;
+    height: 100px;
+}
+
+.consultant p {
+    margin-top: 10px;
+    color: #1e90ff;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 4px;
+    margin-top:30px;
+}
+.info-item-horizontal {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.number-circle {
+    background-color: #f9c642;
+    color: black;
+    font-weight: bold;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.info-content {
+    text-align: left;
+}
+
+.info-content p {
+    margin: 4px 0;
+    line-height: 1.5;
+    font-size: 15px;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px 60px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.about-container {
+    font-family: Arial, sans-serif;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    color: #77C043;
+    margin-top:50px;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* ✅ Căn giữa theo chiều dọc */
+    background-color: #f3f3f3;
+    padding: 30px 50px; /* thêm padding ngang để có khoảng cách đều */
+    min-height: 400px; /* ✅ Đặt chiều cao tối thiểu để căn giữa dễ hơn */
+}
+
+.about-text {
+    width: 60%;
+}
+
+.about-text h3 {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.about-text p {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: justify;
+    margin-left: 0;
+}
+
+.about-image {
+    width: 35%;
+    display: flex;
+    justify-content: center; /* ✅ Căn giữa theo chiều ngang */
+    align-items: center;     /* ✅ Căn giữa theo chiều dọc */
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+
+
+.about-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom:50px;
+}
+
+.btn-consult {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-post {
+    background-color: #f37021;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
