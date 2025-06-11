@@ -11,17 +11,17 @@ import java.awt.Image;
  * @author hoang
  */
 public class User {
-    private String UserID;
+    private int UserID;
     private String Name;
     private String Email;
     private String PhoneNumber;
     private String Address;
-    private Image img;
+    private byte[] img;
 
     public User() {
     }
 
-    public User(String UserID, String Name, String Email, String PhoneNumber, String Address, Image img) {
+    public User(int UserID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
         this.UserID = UserID;
         this.Name = Name;
         this.Email = Email;
@@ -30,13 +30,17 @@ public class User {
         this.img = img;
     }
 
-    public String getUserID() {
+   
+
+    public int getUserID() {
         return UserID;
     }
 
-    public void setUserID(String UserID) {
+    public void setUserID(int UserID) {
         this.UserID = UserID;
     }
+
+   
 
     public String getName() {
         return Name;
@@ -70,12 +74,14 @@ public class User {
         this.Address = Address;
     }
 
-    public Image getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(Image img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
+
+    
     
 }

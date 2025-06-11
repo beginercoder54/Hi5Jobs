@@ -39,4 +39,12 @@ public class LoginRepository {
         }
         return 1;
     }
+    public int ValidUsername(String username){
+        String sql="SELECT * FROM Account WHERE username=?";
+        List<Account> accounts = jdbcTemplate.query(sql, this::mapRow, username);
+        if(accounts.isEmpty()){
+            return 0;
+        }
+        return 1;
+    }
 }

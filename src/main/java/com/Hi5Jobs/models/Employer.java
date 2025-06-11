@@ -22,11 +22,15 @@ public class Employer extends User{
         this.Taxcode = Taxcode;
     }
 
-    public Employer(String companyDescription, String Taxcode, String UserID, String Name, String Email, String PhoneNumber, String Address, Image img) {
+    public Employer(String companyDescription, String Taxcode, int UserID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
         super(UserID, Name, Email, PhoneNumber, Address, img);
         this.companyDescription = companyDescription;
         this.Taxcode = Taxcode;
     }
+
+  
+
+    
 
     public String getCompanyDescription() {
         return companyDescription;
