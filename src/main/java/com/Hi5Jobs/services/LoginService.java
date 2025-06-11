@@ -22,4 +22,7 @@ public class LoginService {
     public int ValidAccount(String username,String password){
         return repo.ValidAccount(username, password);
     }
+    public int ValidUsername(String username){
+        return repo.ValidUsername(username);
+    }
 }
