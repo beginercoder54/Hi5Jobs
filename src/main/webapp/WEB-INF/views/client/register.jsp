@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +16,7 @@
             <div class="right-panel">
                 <form action="register" method="post" class="register-form">
                     <h2>Register</h2>
+                   <p style="color: red; margin: 0;"><c:out value="${messages}" /></p>
                     <input type="text" name="username" placeholder="User name" >
                     <input type="text" name="fullName" placeholder="Full name" >
                     <input type="text" name="phone" placeholder="Phone number" >
