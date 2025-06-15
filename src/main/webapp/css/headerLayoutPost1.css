@@ -1,0 +1,28 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* <- chặn cuộn toàn trang */
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #fff; /* hoặc #fefaf3 nếu cần */
+  box-sizing: border-box;
+  margin-bottom: 100px;
+}

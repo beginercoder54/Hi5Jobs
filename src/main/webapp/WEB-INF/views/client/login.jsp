@@ -17,7 +17,7 @@
                     <h2>Log in</h2>
                     <input type="text" name="username" placeholder="Username" >
                     <input type="password" name="password" placeholder="Password" >
-                    <p style="height: 20px; color: red;"><c:out value="${message}" /></p>
+                    <p style=" color: red;"><c:out value="${message}" /></p>
                     <button type="submit" class="enter-btn">Log in</button>
                     <div class="divider">Or continue</div>
 

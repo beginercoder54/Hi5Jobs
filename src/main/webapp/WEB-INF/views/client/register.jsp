@@ -14,8 +14,8 @@
                 <img src="${pageContext.request.contextPath}/image/logo-hi5jobs.png" alt="Hi5Jobs" class="main-image">
             </div>
             <div class="right-panel">
+                 <h2>Register</h2>
                 <form action="register" method="post" class="register-form">
-                    <h2>Register</h2>
                    <p style="color: red; margin: 0;"><c:out value="${messages}" /></p>
                     <input type="text" name="username" placeholder="User name" >
                     <input type="text" name="fullName" placeholder="Full name" >

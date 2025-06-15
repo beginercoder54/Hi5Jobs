@@ -25,6 +25,7 @@ public class UserRepository {
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         user.setUserID(rs.getInt("UserID"));
+        user.setAccountID(rs.getInt("accountID"));
         user.setName(rs.getString("Name"));
         user.setEmail(rs.getString("Email"));
         user.setPhoneNumber(rs.getString("PhoneNumber"));
@@ -34,7 +35,7 @@ public class UserRepository {
     }
     
     public int checkPhoneNumber(String Phone){
-        String sql="SELECT PhoneNumber FROM User WHERE PhoneNumbers=?";
+        String sql="SELECT * FROM Users WHERE PhoneNumber=?";
         List<User> accounts = jdbcTemplate.query(sql, this::mapRow, Phone);
         if(accounts.isEmpty()){
             return 0;

@@ -30,6 +30,6 @@ public class RoleController {
     public String registerSeeker(@RequestParam("accountID") int accountID,
             @RequestParam("role") int role) {
         registerService.registerRole(accountID, role); // role = 2
-        return "redirect:/register-success";
+        return "redirect:/Success";
     }
 }

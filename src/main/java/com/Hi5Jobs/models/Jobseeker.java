@@ -22,11 +22,13 @@ public class Jobseeker extends User{
         this.experience = experience;
     }
 
-    public Jobseeker(String education, String experience, int UserID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
-        super(UserID, Name, Email, PhoneNumber, Address, img);
+    public Jobseeker(String education, String experience, int UserID, int accountID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
+        super(UserID, accountID, Name, Email, PhoneNumber, Address, img);
         this.education = education;
         this.experience = experience;
     }
+
+   
 
     
 

@@ -38,6 +38,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     max-width: 380px;
+    text-align: center;
 }
 
 .register-form {
@@ -46,9 +47,6 @@ body {
     gap: 15px;
 }
 
-.register-form h2 {
-    font-size: 22px;
-}
 
 .register-form input {
     padding: 12px;

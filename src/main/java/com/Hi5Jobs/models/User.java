@@ -12,6 +12,7 @@ import java.awt.Image;
  */
 public class User {
     private int UserID;
+    private int accountID;
     private String Name;
     private String Email;
     private String PhoneNumber;
@@ -21,14 +22,17 @@ public class User {
     public User() {
     }
 
-    public User(int UserID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
+    public User(int UserID, int accountID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
         this.UserID = UserID;
+        this.accountID = accountID;
         this.Name = Name;
         this.Email = Email;
         this.PhoneNumber = PhoneNumber;
         this.Address = Address;
         this.img = img;
     }
+
+    
 
    
 
@@ -80,6 +84,14 @@ public class User {
 
     public void setImg(byte[] img) {
         this.img = img;
+    }
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     
