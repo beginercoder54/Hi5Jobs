@@ -38,7 +38,7 @@ public class LayoutPostController {
             @RequestParam("description") String description,
             @RequestParam("salaryType") String salaryType,
             @RequestParam("gender") String gender,
-            @RequestParam("quantity") Integer quantity,
+            @RequestParam("quantity") int quantity,
             @RequestParam("age") String age,
             @RequestParam("requirementNote") String requirementNote,
             @RequestParam("salaryFrom") String salaryFrom,

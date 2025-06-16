@@ -5,8 +5,6 @@
 package com.Hi5Jobs.repository;
 
 import com.Hi5Jobs.models.Account;
-import com.Hi5Jobs.models.Employer;
-import com.Hi5Jobs.models.Jobseeker;
 import com.Hi5Jobs.models.User;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -25,8 +23,8 @@ public class RegisterRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    int userID;
-    int type;
+    @Autowired
+    private UserRepository repo;
 
     public int registerNew(Account account, User user) {
         // Bước 1: Insert vào bảng Account và lấy accountID mới tạo
@@ -50,32 +48,28 @@ public class RegisterRepository {
 
         // Bước 3: Insert vào bảng Users với accountID
         String sqlUser = "INSERT INTO Users (accountID, Name, PhoneNumber) VALUES (?, ?, ?)";
-        KeyHolder userKeyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sqlUser, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, accountID);
-            ps.setString(2, user.getName());
-            ps.setString(3, user.getPhoneNumber());
-            return ps;
-        }, userKeyHolder);
-
-        Number userKey = userKeyHolder.getKey();
-        if (userKey == null) {
-            throw new RuntimeException("Tạo người dùng thất bại: không lấy được userID");
-        }
-        userID = userKey.intValue();
+        jdbcTemplate.update(sqlUser,
+                accountID,
+                user.getName(),
+                user.getPhoneNumber());
         return accountID;
     }
 
     public void updateUserType(int accountID, int userType) {
-        if(userType==2){
+        User user = repo.findByAccountId(accountID);
+        if (user == null) {
+            throw new RuntimeException("Không tìm thấy User tương ứng với accountID: " + accountID);
+        }
+
+        int userID = user.getUserID();
+        if (userType == 2) {
             insertRole(userID);
-        }else {
+        } else {
             insertRoleS(userID);
         }
         String sql = "UPDATE Account SET userType = ? WHERE accountID = ?";
         jdbcTemplate.update(sql, userType, accountID);
-        
+
     }
 
     public void insertRole(int UserID) {

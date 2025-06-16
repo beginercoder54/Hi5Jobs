@@ -21,6 +21,7 @@ public class UserRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+ 
     
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();

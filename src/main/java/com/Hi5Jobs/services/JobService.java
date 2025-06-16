@@ -6,6 +6,7 @@ package com.Hi5Jobs.services;
 
 import com.Hi5Jobs.models.Job;
 import com.Hi5Jobs.repository.JobRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,8 @@ public class JobService {
     public void addNewJob(Job job){
         repo.addNewJob(job);
     }
+    
+     public List<Job> getAllJobs() {
+        return repo.getAllJobs();
+     }
 }

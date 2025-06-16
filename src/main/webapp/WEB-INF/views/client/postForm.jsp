@@ -82,7 +82,6 @@
     <div class="form-actions">
         <button type="submit">Đăng Tin</button>
     </div>
-    <!--     Thông báo thành công 
     <c:if test="${success == true}">
         <div id="successPopup" class="popup-overlay">
             <div class="popup-content">
@@ -93,7 +92,6 @@
         </div>
     </c:if>
 
-     Thông báo thất bại 
     <c:if test="${error == true}">
         <div id="errorPopup" class="popup-overlay">
             <div class="popup-content">
@@ -114,5 +112,5 @@
             if (popup)
                 popup.style.display = "flex";
         });
-    </script>-->
+    </script>
 </form>

@@ -4,12 +4,13 @@
  */
 package com.Hi5Jobs.controller;
 
+import com.Hi5Jobs.models.Job;
+import com.Hi5Jobs.services.JobService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -17,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class HomePageController {
+    
+    @Autowired
+    private JobService jobService;
     @RequestMapping({"/","/homepage"})
     public String showLoginPage(Model model) {
+         List<Job> jobList = jobService.getAllJobs(); // Trả về danh sách Job
+        model.addAttribute("jobs", jobList);
         model.addAttribute("body","/WEB-INF/views/client/homepage.jsp");
         return "client/layout/main"; // sẽ gọi login.jsp
     }

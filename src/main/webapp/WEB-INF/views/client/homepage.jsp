@@ -5,14 +5,21 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
-//${pageContext.request.contextPath}
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/job-card.css">
+
+<div class="job-container">
+  <c:forEach var="job" items="${jobs}">
+    <div class="job-card">
+     
+      <div class="content">
+        <h4>${job.title}</h4>
+        <div class="meta">
+          <span class="salary">💰 ${job.salary}</span>
+          <span class="location">📍 ${job.location}</span>
+        </div>
+      </div>
+      <div class="favorite">♡</div>
+    </div>
+  </c:forEach>
+</div>

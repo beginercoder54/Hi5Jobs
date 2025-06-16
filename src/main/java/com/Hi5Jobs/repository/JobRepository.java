@@ -7,6 +7,7 @@ package com.Hi5Jobs.repository;
 import com.Hi5Jobs.models.Job;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,8 +35,8 @@ public class JobRepository {
         job.setSalaryType(rs.getNString("salaryType"));
         return job;
     }
-    
-    public void addNewJob(Job job){
+
+    public void addNewJob(Job job) {
         String sql = "INSERT INTO Job (UserID,Title,DecriptionJob,Location,Salary,Requirement,Gentle,NumberRecruitment,UploadDate,Status,Age,salaryType) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql,
                 job.getUserID(),
@@ -49,8 +50,12 @@ public class JobRepository {
                 job.getUploadDate(),
                 job.getStatus(),
                 job.getAge(),
-                job.getSalaryType());         
+                job.getSalaryType());
     }
-    
-    
+
+    public List<Job> getAllJobs() {
+        String sql = "SELECT * FROM Job";
+        return jdbcTemplate.query(sql, this::mapRow);
+    }
+
 }
