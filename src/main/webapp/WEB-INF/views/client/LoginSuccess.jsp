@@ -16,7 +16,6 @@
                 <h2 style="color: red">Registration Successful</h2>
                    <button type="submit" class="enter-btn" onclick="window.location.href='${pageContext.request.contextPath}/login'">Go to login</button>
             </div>
-
         </div>
     </body>
 </html>

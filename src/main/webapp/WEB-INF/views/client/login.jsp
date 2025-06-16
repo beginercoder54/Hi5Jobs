@@ -17,7 +17,7 @@
                     <h2>Log in</h2>
                     <input type="text" name="username" placeholder="Username" >
                     <input type="password" name="password" placeholder="Password" >
-                    <p style=" color: red;"><c:out value="${message}" /></p>
+                    <p style=" color: red;"><c:out value="${messages}" /></p>
                     <button type="submit" class="enter-btn">Log in</button>
                     <div class="divider">Or continue</div>
 
@@ -32,5 +32,13 @@
             </div>
 
         </div>
+        <c:if test="${not empty message}">
+            <script>
+                window.onload = function () {
+                    alert("${message}");
+                };
+            </script>
+        </c:if>
+
     </body>
 </html>

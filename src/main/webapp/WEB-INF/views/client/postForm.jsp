@@ -2,8 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<c:url value='/css/postForm.css'/>" />
 <h3>ĐĂNG TIN TUYỂN DỤNG MỚI</h3>
-<form action="submitJob" method="post">
-
+<form action="post" method="post">
     <!-- Thông tin cơ bản -->
     <div class="form-section">
         <h2>Thông tin cơ bản</h2>
@@ -43,11 +42,6 @@
 
             <input type="text" name="salaryTo" placeholder="15.000.000" />
             <span>VND</span>
-
-            <select name="salaryUnit">
-                <option value="month">Mỗi tháng</option>
-                <option value="year">Mỗi năm</option>
-            </select>
         </div>
     </div>
 
@@ -63,14 +57,7 @@
                     <option value="female">Nữ</option>
                 </select>
             </div>
-            <div>
-                <label>Kinh nghiệm yêu cầu</label>
-                <select name="experience">
-                    <option value="none">Không yêu cầu</option>
-                    <option value="1year">Trên 1 năm</option>
-                    <option value="3years">Trên 3 năm</option>
-                </select>
-            </div>
+
             <div>
                 <label>Số lượng tuyển</label>
                 <input type="text" name="quantity" placeholder="15 người" />
@@ -95,5 +82,37 @@
     <div class="form-actions">
         <button type="submit">Đăng Tin</button>
     </div>
+    <!--     Thông báo thành công 
+    <c:if test="${success == true}">
+        <div id="successPopup" class="popup-overlay">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closePopup()">&times;</span>
+                <h2>🎉 Đăng tin thành công!</h2>
+                <p>Bài đăng đã được lưu.</p>
+            </div>
+        </div>
+    </c:if>
 
+     Thông báo thất bại 
+    <c:if test="${error == true}">
+        <div id="errorPopup" class="popup-overlay">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closePopup()">&times;</span>
+                <h2>❌ Đăng tin thất bại!</h2>
+                <p>Đã có lỗi xảy ra. Vui lòng thử lại.</p>
+            </div>
+        </div>
+    </c:if>
+
+    <script>
+        function closePopup() {
+            const popups = document.querySelectorAll(".popup-overlay");
+            popups.forEach(popup => popup.style.display = "none");
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const popup = document.querySelector(".popup-overlay");
+            if (popup)
+                popup.style.display = "flex";
+        });
+    </script>-->
 </form>

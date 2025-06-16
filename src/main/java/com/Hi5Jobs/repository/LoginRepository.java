@@ -31,13 +31,10 @@ public class LoginRepository {
         return account;
     }
     
-    public int ValidAccount(String username,String password){
+    public Account ValidAccount(String username,String password){
         String sql="SELECT * FROM Account WHERE username=? and password= ?";
         List<Account> accounts = jdbcTemplate.query(sql, this::mapRow, username, password);
-        if(accounts.isEmpty()){
-            return 0;
-        }
-        return 1;
+        return accounts.isEmpty() ? null : accounts.get(0);
     }
     public int ValidUsername(String username){
         String sql="SELECT * FROM Account WHERE username=?";

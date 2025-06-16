@@ -4,6 +4,7 @@
  */
 package com.Hi5Jobs.services;
 
+import com.Hi5Jobs.models.Account;
 import com.Hi5Jobs.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class LoginService {
     private LoginRepository repo;
     
      
-    public int ValidAccount(String username,String password){
+    public Account ValidAccount(String username,String password){
         return repo.ValidAccount(username, password);
     }
     public int ValidUsername(String username){

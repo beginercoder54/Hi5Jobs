@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,20 +63,19 @@
             </div>
         </div>
         <div class="cta-button">
-            <a href="#" class="btn-primary">Đăng tin ngay</a>
+            <a class="btn-primary" onclick="checkLoginAndRedirect()">Đăng tin ngay</a>
         </div>
 
         <div class="consultant-support">
             <h3>Hỗ trợ tư vấn tuyển dụng</h3>
             <div class="consultants">
-                <div class="consultant"><img src="${pageContext.request.contextPath}/images/member.png" alt="Member"><p>Member A</p></div>
-                <div class="consultant"><img src="${pageContext.request.contextPath}/images/member.png" alt="Member"><p>Member A</p></div>
-                <div class="consultant"><img src="${pageContext.request.contextPath}/images/member.png" alt="Member"><p>Member A</p></div>
-                <div class="consultant"><img src="${pageContext.request.contextPath}/images/member.png" alt="Member"><p>Member A</p></div>
+                <div class="consultant"><img src="${pageContext.request.contextPath}/image/member.png" alt="Member"><p>Trương Hoàng Phúc</p></div>
+                <div class="consultant"><img src="${pageContext.request.contextPath}/image/member.png" alt="Member"><p>Xầu Gia Hưng</p></div>
+                <div class="consultant"><img src="${pageContext.request.contextPath}/image/member.png" alt="Member"><p>Nguyễn Đức Lương</p></div>
             </div>
 
         </div>
-        <div class="btn-secondary">Tư vấn tuyển dụng</div>
+        <div class="btn-secondary" onclick="alert('Coming soon')">Tư vấn tuyển dụng</div>
         <div class="about-container">
             <h2>ABOUT US</h2>
             <div class="about-content">
@@ -103,9 +103,23 @@
             </div>
 
             <div class="about-buttons">
-                <button class="btn-consult">Tư vấn tuyển dụng</button>
-                <button class="btn-post">Đăng tin ngay</button>
+                <button class="btn-consult" onclick="alert('Coming soon')">Tư vấn tuyển dụng</button>
+                <button class="btn-post" onclick="checkLoginAndRedirect()">Đăng tin ngay</button>
             </div>
         </div>
+                <%
+    Integer accountID = (Integer) session.getAttribute("accountID");
+%>
+
+<script>
+    function checkLoginAndRedirect() {
+        const accountID = <%= accountID != null ? accountID : "null" %>;
+        if (accountID !== null) {
+            window.location.href = "<c:url value='/post'/>";
+        } else {
+            alert("Bạn cần đăng nhập để đăng tin tuyển dụng!");
+        }
+    }
+</script>
     </body>
 </html>

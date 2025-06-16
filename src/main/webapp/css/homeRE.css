@@ -20,6 +20,7 @@ body {
 .cta-button {
     margin: 5px 0;
     margin-bottom: 30px;
+    cursor:pointer;
 }
 
 .btn-primary {
@@ -28,6 +29,7 @@ body {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 6px;
+    cursor:pointer;
 }
 
 .consultant-support {
@@ -58,6 +60,7 @@ body {
     display: inline-block;
     border-radius: 4px;
     margin-top:30px;
+    cursor:pointer;
 }
 .info-item-horizontal {
     display: flex;

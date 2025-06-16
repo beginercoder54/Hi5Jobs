@@ -10,24 +10,27 @@ import java.awt.Image;
  *
  * @author hoang
  */
-public class Employer extends User{
+public class Employer extends User {
+
+    private int UserID;
     private String companyDescription;
     private String Taxcode;
 
     public Employer() {
     }
 
-    public Employer(String companyDescription, String Taxcode) {
+    public Employer(int UserID, String companyDescription, String Taxcode) {
+        this.UserID = UserID;
         this.companyDescription = companyDescription;
         this.Taxcode = Taxcode;
     }
 
-    public Employer(String companyDescription, String Taxcode, int UserID, int accountID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
-        super(UserID, accountID, Name, Email, PhoneNumber, Address, img);
+    public Employer(int userID, String companyDescription, String taxcode,
+            int accountID, String name, String email, String phoneNumber, String address, byte[] img) {
+        super(userID, accountID, name, email, phoneNumber, address, img);
         this.companyDescription = companyDescription;
-        this.Taxcode = Taxcode;
+        this.Taxcode = taxcode;
     }
-    
 
     public String getCompanyDescription() {
         return companyDescription;
@@ -44,5 +47,15 @@ public class Employer extends User{
     public void setTaxcode(String Taxcode) {
         this.Taxcode = Taxcode;
     }
-    
+
+    @Override
+    public int getUserID() {
+        return UserID;
+    }
+
+    @Override
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+
 }

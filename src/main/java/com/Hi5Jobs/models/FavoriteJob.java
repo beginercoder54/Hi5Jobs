@@ -4,7 +4,7 @@
  */
 package com.Hi5Jobs.models;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  *
@@ -20,10 +20,11 @@ public class FavoriteJob extends Job{
         this.FavoriteJobID = FavoriteJobID;
     }
 
-    public FavoriteJob(int FavoriteJobID, int jobID, String title, String DescriptionJob, String Location, double Salary, String requirement, int gentle, int numberofRecruiment, LocalDateTime uploadDate, int status) {
-        super(jobID, title, DescriptionJob, Location, Salary, requirement, gentle, numberofRecruiment, uploadDate, status);
+    public FavoriteJob(int FavoriteJobID, int jobID, int UserID, String title, String DescriptionJob, String Location, String Salary, String requirement, String gentle, int numberofRecruiment, LocalDate uploadDate, int status, String Age, String salaryType) {
+        super(jobID, UserID, title, DescriptionJob, Location, Salary, requirement, gentle, numberofRecruiment, uploadDate, status, Age, salaryType);
         this.FavoriteJobID = FavoriteJobID;
     }
+
 
     public int getFavoriteJobID() {
         return FavoriteJobID;

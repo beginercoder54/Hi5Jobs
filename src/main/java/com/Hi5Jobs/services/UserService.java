@@ -4,6 +4,7 @@
  */
 package com.Hi5Jobs.services;
 
+import com.Hi5Jobs.models.User;
 import com.Hi5Jobs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class UserService {
 
     public int checkValidPhone(String Phone){
         return repo.checkPhoneNumber(Phone);
+    }
+    
+      public User findByAccountId(int accountId) {
+        return repo.findByAccountId(accountId);
     }
 }

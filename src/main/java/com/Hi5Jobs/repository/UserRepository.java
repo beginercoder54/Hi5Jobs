@@ -42,4 +42,10 @@ public class UserRepository {
         }
         return 1;
     }
+    
+      public User findByAccountId(int accountId) {
+        String sql = "SELECT * FROM Users WHERE accountID = ?";
+        List<User> users = jdbcTemplate.query(sql, this::mapRow, accountId);
+        return users.isEmpty() ? null : users.get(0);
+    }
 }
