@@ -13,6 +13,7 @@ import com.Hi5Jobs.models.User;
 import com.Hi5Jobs.services.LoginService;
 import com.Hi5Jobs.services.RegisterService;
 import com.Hi5Jobs.services.UserService;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public class RegisterController {
             @RequestParam("phone") String phone,
             @RequestParam("password") String password,
             @RequestParam("confirmPassword") String confirmPass,
-            Model model) {
+            Model model) throws IOException {
         if ("".equals(fullName) || "".equals(phone) || "".equals(password) || "".equals(confirmPass)) {
             model.addAttribute("messages", "Please fill in the information completely!");
             return "client/register";

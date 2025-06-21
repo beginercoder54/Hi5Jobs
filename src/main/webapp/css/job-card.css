@@ -10,6 +10,8 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 16px;
     margin-bottom: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .job-card {
@@ -55,4 +57,91 @@ body {
     font-size: 20px;
     color: #444;
     cursor: pointer;
+}
+.filter-bar {
+    background-color: #f1dc92;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-family: Arial, sans-serif;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 1475px;
+    margin:0 auto;
+    margin-bottom: 30px;
+    
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 36px;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    width: 160px;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Show dropdown on hover */
+.filter-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background-color: white;
+    border: 1px solid #000;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background-color: #000;
+    color: white;
+}
+.gradient-text {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(to right, #f9b233, #f27457);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left:90px;
 }

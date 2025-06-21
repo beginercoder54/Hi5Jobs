@@ -52,7 +52,9 @@
 
                 <!-- Avatar -->
                 <div class="user-avatar">
-                    <img src="${pageContext.request.contextPath}/image/user.png" alt="Avatar">
+                    <a href="${pageContext.request.contextPath}/profile">
+                        <img src="${pageContext.request.contextPath}/image/user.png" alt="Avatar">
+                    </a>
                 </div>
             </div>
 
@@ -62,7 +64,7 @@
     </div>
     <div class="image-header">
         <img src="${pageContext.request.contextPath}/image/imageheader.png" alt="imageheader">
-</div>
+    </div>
 
 </body>
 <script>

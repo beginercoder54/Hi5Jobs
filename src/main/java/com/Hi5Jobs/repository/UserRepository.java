@@ -21,8 +21,7 @@ public class UserRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
- 
-    
+
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         user.setUserID(rs.getInt("UserID"));
@@ -34,19 +33,20 @@ public class UserRepository {
         user.setImg(rs.getBytes("Image"));
         return user;
     }
-    
-    public int checkPhoneNumber(String Phone){
-        String sql="SELECT * FROM Users WHERE PhoneNumber=?";
+
+    public int checkPhoneNumber(String Phone) {
+        String sql = "SELECT * FROM Users WHERE PhoneNumber=?";
         List<User> accounts = jdbcTemplate.query(sql, this::mapRow, Phone);
-        if(accounts.isEmpty()){
+        if (accounts.isEmpty()) {
             return 0;
         }
         return 1;
     }
-    
-      public User findByAccountId(int accountId) {
+
+    public User findByAccountId(int accountId) {
         String sql = "SELECT * FROM Users WHERE accountID = ?";
         List<User> users = jdbcTemplate.query(sql, this::mapRow, accountId);
         return users.isEmpty() ? null : users.get(0);
     }
+
 }

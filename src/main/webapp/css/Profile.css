@@ -1,0 +1,141 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    flex: 1; /* Đẩy footer xuống đáy */
+    flex-direction: column;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 150px;
+    position: relative;
+    max-width:1400px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.avatar-container {
+    width: 100px;
+    height:100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    border: 3px solid #fff;
+    background: #fff;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-family: Arial, sans-serif;
+    font-size:50px;
+}
+
+.infomation-container {
+    display: flex;
+    width: 100%;
+    gap: 20px; /* Tạo khoảng cách giữa hai cột */
+    margin: 0 auto;
+    max-width:1445px;
+    margin-top: 10px;
+}
+
+.option-container {
+    width: 20%;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 12px; /* Bo tròn góc */
+    box-sizing: border-box;
+}
+
+.info-main {
+    width: 80%;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 12px; /* Bo tròn góc */
+    box-sizing: border-box;
+    font-size:20px;
+}
+.form-actions {
+    text-align: left;
+}
+
+button {
+    background-color: #f7b85b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0a84c;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+.avatar-preview {
+  display: none;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: block;
+}
+.model-content label,input{
+     margin-bottom: 15px;
+}
+.model-content input {
+  width: 250px; /* Tất cả input sẽ cùng độ dài */
+  padding: 6px;
+  box-sizing: border-box;
+}

@@ -42,6 +42,7 @@ public class LoginController {
             if (acc.getUserType()== 2 || acc.getUserType()== 3) {
                 session.setAttribute("accountID", acc.getAccountID());
                 session.setAttribute("userType", acc.getUserType());
+                
                 return "redirect:/homepage";
             } else {
                 model.addAttribute("message", "Tài khoản của bạn không đủ quyền truy cập.");

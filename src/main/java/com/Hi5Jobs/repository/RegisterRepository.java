@@ -6,6 +6,8 @@ package com.Hi5Jobs.repository;
 
 import com.Hi5Jobs.models.Account;
 import com.Hi5Jobs.models.User;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class RegisterRepository {
     @Autowired
     private UserRepository repo;
 
-    public int registerNew(Account account, User user) {
+    public int registerNew(Account account, User user) throws IOException {
         // Bước 1: Insert vào bảng Account và lấy accountID mới tạo
         String sqlAccount = "INSERT INTO Account (username, password) VALUES (?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -46,12 +48,26 @@ public class RegisterRepository {
 
         int accountID = key.intValue();
 
-        // Bước 3: Insert vào bảng Users với accountID
-        String sqlUser = "INSERT INTO Users (accountID, Name, PhoneNumber) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sqlUser,
-                accountID,
-                user.getName(),
-                user.getPhoneNumber());
+        byte[] defaultImageBytes = null;
+        try (InputStream inputStream = getClass().getResourceAsStream("/image/user.png")) {
+            if (inputStream != null) {
+                defaultImageBytes = inputStream.readAllBytes();
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // log lỗi nếu có
+        }
+
+        // B3: Insert user
+        String sqlUser = "INSERT INTO Users (accountID, Name, PhoneNumber, Image) VALUES (?, ?, ?, ?)";
+        byte[] finalImage = defaultImageBytes; // để dùng trong lambda
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sqlUser);
+            ps.setInt(1, accountID);
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPhoneNumber());
+            ps.setBytes(4, finalImage); // dùng byte[] ảnh
+            return ps;
+        });
         return accountID;
     }
 

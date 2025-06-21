@@ -125,7 +125,7 @@ body {
 .image-header {
     padding: 8px 0;
     width: 100%;
-    max-width: 1300px; /* Phù hợp với thanh navbar */
+    max-width: 1400px; /* Phù hợp với thanh navbar */
     margin: 0 auto;
     text-align: center;
 }

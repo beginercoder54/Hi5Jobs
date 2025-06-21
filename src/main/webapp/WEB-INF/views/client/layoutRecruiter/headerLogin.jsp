@@ -51,10 +51,11 @@
 
                 <!-- Avatar -->
                 <div class="user-avatar">
-                    <img src="${pageContext.request.contextPath}/image/user.png" alt="Avatar">
+                    <a href="${pageContext.request.contextPath}/profile">
+                        <img src="${pageContext.request.contextPath}/image/user.png" alt="Avatar">
+                    </a>
                 </div>
             </div>
-
 
 
         </div> 
