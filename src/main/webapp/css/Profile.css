@@ -131,11 +131,29 @@ button:hover {
   margin: 20px auto;
   display: block;
 }
-.model-content label,input{
-     margin-bottom: 15px;
+.modal-content label{
+    width:120px;
 }
-.model-content input {
+.modal-content input {
   width: 250px; /* Tất cả input sẽ cùng độ dài */
   padding: 6px;
   box-sizing: border-box;
+  margin-bottom:10px;
+}
+.profile-menu li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.profile-menu a {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 12px;
+}
+
+.profile-menu a:hover {
+    background-color: #e0e0e0;
+    border-radius: 5px;
 }

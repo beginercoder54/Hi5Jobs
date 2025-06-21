@@ -19,11 +19,19 @@ public class UserService {
     @Autowired
     private UserRepository repo;
 
-    public int checkValidPhone(String Phone){
+    public int checkValidPhone(String Phone) {
         return repo.checkPhoneNumber(Phone);
     }
-    
-      public User findByAccountId(int accountId) {
+
+    public User findByAccountId(int accountId) {
         return repo.findByAccountId(accountId);
+    }
+
+    public void updateUserInfo(User user) {
+        if (user.getImg() != null) {
+            repo.updateUserInfo(user);
+        } else {
+     repo       .updateUserWithoutImage(user);
+        }
     }
 }

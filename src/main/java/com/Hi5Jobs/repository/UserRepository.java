@@ -49,4 +49,24 @@ public class UserRepository {
         return users.isEmpty() ? null : users.get(0);
     }
 
+    public void updateUserInfo(User user) {
+        String sql = "UPDATE Users SET Name = ?, Email = ?, PhoneNumber = ?, Address = ?, Image = ? WHERE UserID = ?";
+        jdbcTemplate.update(sql,
+                user.getName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getAddress(),
+                user.getImg(), // byte[] ảnh
+                user.getUserID());
+    }
+
+    public void updateUserWithoutImage(User user) {
+        String sql = "UPDATE Users SET Name = ?, Email = ?, PhoneNumber = ?, Address = ? WHERE UserID = ?";
+        jdbcTemplate.update(sql,
+                user.getName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getAddress(),
+                user.getUserID());
+    }
 }

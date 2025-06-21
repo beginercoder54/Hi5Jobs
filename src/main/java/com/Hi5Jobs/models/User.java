@@ -5,12 +5,14 @@
 package com.Hi5Jobs.models;
 
 import java.awt.Image;
+import java.util.Base64;
 
 /**
  *
  * @author hoang
  */
 public class User {
+
     private int UserID;
     private int accountID;
     private String Name;
@@ -32,10 +34,6 @@ public class User {
         this.img = img;
     }
 
-    
-
-   
-
     public int getUserID() {
         return UserID;
     }
@@ -43,8 +41,6 @@ public class User {
     public void setUserID(int UserID) {
         this.UserID = UserID;
     }
-
-   
 
     public String getName() {
         return Name;
@@ -94,6 +90,12 @@ public class User {
         this.accountID = accountID;
     }
 
-    
+    public String getBase64Image() {
+        if (img != null && img.length > 0) {
+            return java.util.Base64.getEncoder().encodeToString(img);
+        }
+        return "";
+    }
+
     
 }

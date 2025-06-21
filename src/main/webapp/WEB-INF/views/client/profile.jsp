@@ -10,6 +10,12 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <c:if test="${not empty alertMessage}">
+            <script>
+        alert("${alertMessage}");
+            </script>
+        </c:if>
+
         <div class="wrapper">
             <div class="header-container">
                 <div class="header-wrapper">
@@ -60,7 +66,9 @@
                         <!-- Avatar -->
                         <div class="user-avatar">
                             <a href="${pageContext.request.contextPath}/profile">
-                                <img src="${pageContext.request.contextPath}/image/user.png" alt="Avatar">
+                                <img class="avatar"
+                                     src="${user.base64Image != null ? 'data:image/jpeg;base64,'.concat(user.base64Image) : pageContext.request.contextPath.concat('/image/user.png')}"
+                                     alt="Avatar" />
                             </a>
                         </div>
 
@@ -69,7 +77,10 @@
             </div>  
             <div class="profile-header" style="background-image: url('<c:url value="/image/background.png"/>');">
                 <div class="avatar-container">
-                    <img class="avatar" src="<c:url value='/image/user.png'/>" alt="Avatar" />
+                    <img class="avatar"
+                         src="${user.base64Image != null ? 'data:image/jpeg;base64,'.concat(user.base64Image) : pageContext.request.contextPath.concat('/image/user.png')}"
+                         alt="Avatar"/>
+
                 </div>
                 <div class="profile-info">
                     <div class="user-name">${user.name}</div>
@@ -79,20 +90,35 @@
             <div class = "infomation-container">
                 <div class = "option-container">
                     <ul class="profile-menu">
-                        <a href="#">Thông tin cá nhân</a>
-                        <a href="#">Hồ sơ xin việc</a>
-                        <a href="#">Resume</a>
+                        <li><a href="#" onclick="showSection('personal')">Thông tin cá nhân</a></li>
+                        <li><a href="#" onclick="showSection('cv')">Hồ sơ xin việc</a></li>
+                        <li><a href="#" onclick="showSection('resume')">Resume</a></li>
                     </ul>
                 </div>
                 <div class = "info-main">
-                    <p><strong>User ID:</strong> ${user.userID}</p>
-                    <p><strong>Account ID:</strong> ${user.accountID}</p>
-                    <p><strong>Họ tên:</strong> ${user.name}</p>
-                    <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Số điện thoại:</strong> ${user.phoneNumber}</p>
-                    <p><strong>Địa chỉ:</strong> ${user.address}</p>
-                    <div class="form-actions">
-                        <button onclick="openModal()">Update profile</button>
+                    <div class="section" id="section-personal">
+                        <h2><strong>Thông tin cá nhân</strong></h2>
+                        <p><strong>User ID:</strong> ${user.userID}</p>
+                        <p><strong>Account ID:</strong> ${user.accountID}</p>
+                        <p><strong>Họ tên:</strong> ${user.name}</p>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>Số điện thoại:</strong> ${user.phoneNumber}</p>
+                        <p><strong>Địa chỉ:</strong> ${user.address}</p>
+                        <div class="form-actions">
+                            <button onclick="openModal()">Update profile</button>
+                        </div>
+                    </div>
+
+                    <!-- Hồ sơ xin việc -->
+                    <div class="section" id="section-cv" style="display: none;">
+                        <h2><strong>Hồ sơ xin việc</strong></h2>
+                        <p>Hồ sơ xin việc sẽ hiển thị ở đây.</p>
+                    </div>
+
+                    <!-- Resume -->
+                    <div class="section" id="section-resume" style="display: none;">
+                        <h2><strong>Resume</strong></h2>
+                        <p>Resume sẽ hiển thị ở đây.</p>
                     </div>
 
                 </div>
@@ -104,12 +130,15 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Cập nhật thông tin cá nhân</h2>
-                <form action="${pageContext.request.contextPath}/update-profile" method="post">
+                <form action="${pageContext.request.contextPath}/update-profile" method="post" enctype="multipart/form-data">
                     <label>Ảnh đại diện mới:</label>
                     <input type="file" name="avatar" accept="image/*" onchange="previewImage(event)" />
                     <br/>
-                   <img id="avatarPreview" src="#" alt="Ảnh xem trước" class="avatar-preview" />
 
+                    <img id="avatarPreview"
+                         src="data:image/jpeg;base64,${user.base64Image}"
+                         alt="Ảnh xem trước"
+                         class="avatar-preview" />
                     <label>Họ tên:</label>
                     <input type="text" name="name" value="${user.name}" /><br/>
 
@@ -122,7 +151,7 @@
                     <label>Địa chỉ:</label>
                     <input type="text" name="address" value="${user.address}" /><br/>
 
-                    <button type="submit">Lưu thay đổi</button>
+                    <button type="submit">Update</button>
                 </form>
             </div>
         </div>
@@ -159,7 +188,31 @@
                 }
             }
         </script>
+        <script>
+            function showSection(sectionId) {
+                // Ẩn tất cả section
+                document.querySelectorAll('.section').forEach(el => el.style.display = 'none');
 
+                // Hiện section được chọn
+                document.getElementById('section-' + sectionId).style.display = 'block';
+            }
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const menuIcon = document.querySelector(".menu-icon");
+                const dropdown = document.querySelector(".menu-dropdown");
+
+                menuIcon.addEventListener("click", function (e) {
+                    e.stopPropagation(); // tránh click lan ra ngoài
+                    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                });
+
+                // Ẩn dropdown khi click ra ngoài
+                document.addEventListener("click", function () {
+                    dropdown.style.display = "none";
+                });
+            });
+        </script>
     </body>
     <link rel="stylesheet" href="<c:url value='/css/clientfooter.css'/>" />
     <footer>

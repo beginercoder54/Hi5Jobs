@@ -53,7 +53,9 @@
                 <!-- Avatar -->
                 <div class="user-avatar">
                     <a href="${pageContext.request.contextPath}/profile">
-                        <img src="${pageContext.request.contextPath}/image/user.png" alt="Avatar">
+                        <img class="avatar"
+                             src="${user.base64Image != null ? 'data:image/jpeg;base64,'.concat(user.base64Image) : pageContext.request.contextPath.concat('/image/user.png')}"
+                             alt="Avatar"/>
                     </a>
                 </div>
             </div>
