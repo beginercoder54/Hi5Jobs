@@ -78,7 +78,7 @@ public class RegisterRepository {
         }
 
         int userID = user.getUserID();
-        if (userType == 2) {
+        if (userType == 3) {
             insertRole(userID);
         } else {
             insertRoleS(userID);

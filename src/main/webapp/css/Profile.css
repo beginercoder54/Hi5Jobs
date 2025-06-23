@@ -99,46 +99,49 @@ button:hover {
     background-color: #e0a84c;
 }
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background-color: white;
-  margin: 10% auto;
-  padding: 20px;
-  width: 400px;
-  border-radius: 10px;
-  position: relative;
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
 }
 
 .close {
-  position: absolute;
-  top: 10px; right: 15px;
-  font-size: 24px;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
 }
 .avatar-preview {
-  display: none;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin: 20px auto;
-  display: block;
+    display: none;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: block;
 }
 .modal-content label{
     width:120px;
 }
 .modal-content input {
-  width: 250px; /* Tất cả input sẽ cùng độ dài */
-  padding: 6px;
-  box-sizing: border-box;
-  margin-bottom:10px;
+    width: 250px; /* Tất cả input sẽ cùng độ dài */
+    padding: 6px;
+    box-sizing: border-box;
+    margin-bottom:10px;
 }
 .profile-menu li {
     list-style: none;
@@ -156,4 +159,42 @@ button:hover {
 .profile-menu a:hover {
     background-color: #e0e0e0;
     border-radius: 5px;
+}
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-content button {
+    margin: 5px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.popup-content button[type="button"] {
+    background-color: #888;
 }

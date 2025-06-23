@@ -4,10 +4,15 @@
  */
 package com.Hi5Jobs.controller;
 
+import com.Hi5Jobs.models.Resume;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.ResumeService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +31,8 @@ public class ProfileController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ResumeService resumeService;
 
     @GetMapping("/profile")
     public String showProfie(HttpSession session, Model model) {
@@ -33,6 +40,10 @@ public class ProfileController {
         User user = userService.findByAccountId(accountId);
         session.setAttribute("userID", user.getUserID());
         model.addAttribute("user", user);
+        Integer userID = user.getUserID();
+        List<Resume> resumes = resumeService.getByUserID(userID); // ✅ trả về List<Resume>
+        model.addAttribute("resumes", resumes); // ✅ đặt tên đúng: resumes
+
         return "client/profile";
     }
 
@@ -43,7 +54,8 @@ public class ProfileController {
             @RequestParam("address") String address,
             @RequestParam("avatar") MultipartFile avatar,
             HttpSession session,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes
+    ) {
         Integer userId = (Integer) session.getAttribute("userID");
         if (userId == null) {
             return "redirect:/login";
@@ -67,7 +79,31 @@ public class ProfileController {
         user.setImg(imageBytes); // có thể null nếu người dùng không thay ảnh
 
         userService.updateUserInfo(user);
-        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật hồ sơ thành công!");
+        redirectAttributes.addFlashAttribute("alertMessage", "Cập nhật hồ sơ thành công!");
         return "redirect:/profile";
     }
+
+    @PostMapping("/uploadCV")
+    private String uploadCV(@RequestParam("cvImage") MultipartFile file, HttpSession session) {
+        Integer userID = (Integer) session.getAttribute("userID");
+
+        if (userID != null && !file.isEmpty()) {
+            try {
+                byte[] imageBytes = file.getBytes();
+
+                Resume resume = new Resume();
+                resume.setUserID(userID);
+                resume.setUploadDate(LocalDateTime.now());
+                resume.setImgResume(imageBytes); // lưu kiểu byte[] thay vì Image để tiện
+
+                resumeService.save(resume); // Gọi service lưu vào CSDL
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "redirect:/profile"; // Sau khi upload, quay lại trang hồ sơ
+    }
+
 }

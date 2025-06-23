@@ -9,7 +9,9 @@ import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +29,17 @@ public class LayoutPostController {
     private UserService userService;
 
     @GetMapping("/post")
-    public String show(Model model) {
-        model.addAttribute("body", "/WEB-INF/views/client/postForm.jsp");
-        return "client/layoutPost/main";
+    public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
+        Integer userType = (Integer) session.getAttribute("userType");
+        if (userType == 3) {
+            model.addAttribute("body", "/WEB-INF/views/client/postForm.jsp");
+            return "client/layoutPost/main";
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(
+                    "<script>alert('Tài khoản của bạn là Jobseeker. Vui lòng đăng ký tài khoản Employer để đăng tin.'); window.history.back();</script>");
+            return null;
+        }
     }
 
     @PostMapping("/post")
@@ -46,25 +56,24 @@ public class LayoutPostController {
             HttpSession session,
             Model model) {
 
+        int accountID = (Integer) session.getAttribute("accountID");
+        User user = userService.findByAccountId(accountID);
+        Job job = new Job();
+        job.setUserID(user.getUserID());
+        job.setTitle(jobTitle);
+        job.setLocation(location);
+        job.setDescriptionJob(description);
+        job.setSalaryType(salaryType);
+        job.setGentle(gender);
+        job.setNumberofRecruiment(quantity);
+        job.setAge(age);
+        job.setRequirement(requirementNote);
+        job.setSalary(salaryFrom + "-" + salaryTo);
+        job.setUploadDate(LocalDate.now());
+        job.setStatus(1);
 
-            int accountID = (Integer) session.getAttribute("accountID");
-            User user = userService.findByAccountId(accountID);
-            Job job = new Job();
-            job.setUserID(user.getUserID());
-            job.setTitle(jobTitle);
-            job.setLocation(location);
-            job.setDescriptionJob(description);
-            job.setSalaryType(salaryType);
-            job.setGentle(gender);
-            job.setNumberofRecruiment(quantity);
-            job.setAge(age);
-            job.setRequirement(requirementNote);
-            job.setSalary(salaryFrom + "-" + salaryTo);
-            job.setUploadDate(LocalDate.now());
-            job.setStatus(1);
-            
-            jobService.addNewJob(job);
-            model.addAttribute("success", true);
+        jobService.addNewJob(job);
+        model.addAttribute("success", true);
 
         return "redirect:/post";
     }

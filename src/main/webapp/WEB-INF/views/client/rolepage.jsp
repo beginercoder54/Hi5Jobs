@@ -32,7 +32,7 @@
 
 
                     <form action="${pageContext.request.contextPath}/register-role" method="post">
-                         <input type="hidden" name="accountID" value="${param.accountID}">
+                        <input type="hidden" name="accountID" value="${param.accountID}">
                         <button type="submit" name="role" value="3" class="role-button">
                             <img src="${pageContext.request.contextPath}/image/recruiter-icon.png" alt="Nhà tuyển dụng">
                             <span>Recruiter</span>

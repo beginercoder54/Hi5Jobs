@@ -6,20 +6,24 @@ package com.Hi5Jobs.models;
 
 import java.awt.Image;
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 /**
  *
  * @author hoang
  */
 public class Resume {
+
+    private int UserID;
     private int resumeID;
-    private Image imgResume;
+    private byte[] imgResume;
     private LocalDateTime uploadDate;
 
     public Resume() {
     }
 
-    public Resume(int resumeID, Image imgResume, LocalDateTime uploadDate) {
+    public Resume(int UserID, int resumeID, byte[] imgResume, LocalDateTime uploadDate) {
+        this.UserID = UserID;
         this.resumeID = resumeID;
         this.imgResume = imgResume;
         this.uploadDate = uploadDate;
@@ -33,11 +37,11 @@ public class Resume {
         this.resumeID = resumeID;
     }
 
-    public Image getImgResume() {
+    public byte[] getImgResume() {
         return imgResume;
     }
 
-    public void setImgResume(Image imgResume) {
+    public void setImgResume(byte[] imgResume) {
         this.imgResume = imgResume;
     }
 
@@ -48,5 +52,20 @@ public class Resume {
     public void setUploadDate(LocalDateTime uploadDate) {
         this.uploadDate = uploadDate;
     }
-    
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+
+    public String getBase64Image() {
+        if (imgResume != null && imgResume.length > 0) {
+            return java.util.Base64.getEncoder().encodeToString(imgResume);
+        }
+        return "";
+    }
+
 }
