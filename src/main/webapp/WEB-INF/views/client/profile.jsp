@@ -157,6 +157,7 @@
                         <script>
                             function openPopup() {
                                 document.getElementById("uploadPopup").style.display = "flex";
+                                
                             }
 
                             function closePopup() {
@@ -269,7 +270,7 @@
         </div>
         <script>
             function openModal() {
-                document.getElementById("profileModal").style.display = "block";
+                document.getElementById("profileModal").style.display = "flex";
             }
 
             function closeModal() {

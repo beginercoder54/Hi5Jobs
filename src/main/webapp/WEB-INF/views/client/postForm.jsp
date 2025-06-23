@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<c:url value='/css/postForm.css'/>" />
 <h3>ĐĂNG TIN TUYỂN DỤNG MỚI</h3>
-<form action="post" method="post">
+<form action="${pageContext.request.contextPath}/post" method="post">
     <!-- Thông tin cơ bản -->
     <div class="form-section">
         <h2>Thông tin cơ bản</h2>
@@ -82,35 +82,5 @@
     <div class="form-actions">
         <button type="submit">Đăng Tin</button>
     </div>
-    <c:if test="${success == true}">
-        <div id="successPopup" class="popup-overlay">
-            <div class="popup-content">
-                <span class="close-btn" onclick="closePopup()">&times;</span>
-                <h2>🎉 Đăng tin thành công!</h2>
-                <p>Bài đăng đã được lưu.</p>
-            </div>
-        </div>
-    </c:if>
-
-    <c:if test="${error == true}">
-        <div id="errorPopup" class="popup-overlay">
-            <div class="popup-content">
-                <span class="close-btn" onclick="closePopup()">&times;</span>
-                <h2>❌ Đăng tin thất bại!</h2>
-                <p>Đã có lỗi xảy ra. Vui lòng thử lại.</p>
-            </div>
-        </div>
-    </c:if>
-
-    <script>
-        function closePopup() {
-            const popups = document.querySelectorAll(".popup-overlay");
-            popups.forEach(popup => popup.style.display = "none");
-        }
-        document.addEventListener("DOMContentLoaded", function () {
-            const popup = document.querySelector(".popup-overlay");
-            if (popup)
-                popup.style.display = "flex";
-        });
-    </script>
+   
 </form>

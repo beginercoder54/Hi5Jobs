@@ -51,13 +51,18 @@
                 </div>
 
                 <!-- Avatar -->
+                <c:set var="link" value="${sessionScope.userType == 2 ? '/profile' : '/settings'}" />
+
                 <div class="user-avatar">
-                    <a href="${pageContext.request.contextPath}/profile">
+                    <a href="${pageContext.request.contextPath}${link}">
                         <img class="avatar"
-                             src="${user.base64Image != null ? 'data:image/jpeg;base64,'.concat(user.base64Image) : pageContext.request.contextPath.concat('/image/user.png')}"
+                             src="${user.base64Image != null 
+                                    ? 'data:image/jpeg;base64,'.concat(user.base64Image) 
+                                    : pageContext.request.contextPath.concat('/image/user.png')}"
                              alt="Avatar"/>
                     </a>
                 </div>
+
             </div>
 
 

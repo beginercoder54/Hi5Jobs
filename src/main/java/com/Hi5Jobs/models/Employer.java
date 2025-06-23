@@ -4,33 +4,33 @@
  */
 package com.Hi5Jobs.models;
 
-import java.awt.Image;
 
-/**
- *
- * @author hoang
- */
 public class Employer extends User {
 
-    private int UserID;
+    private int userID;
     private String companyDescription;
+    private String companyName;
     private String Taxcode;
 
     public Employer() {
     }
 
-    public Employer(int UserID, String companyDescription, String Taxcode) {
-        this.UserID = UserID;
+    public Employer(int UserID, String companyDescription, String companyName, String Taxcode) {
+        this.userID = UserID;
         this.companyDescription = companyDescription;
+        this.companyName = companyName;
         this.Taxcode = Taxcode;
     }
 
-    public Employer(int userID, String companyDescription, String taxcode,
-            int accountID, String name, String email, String phoneNumber, String address, byte[] img) {
-        super(userID, accountID, name, email, phoneNumber, address, img);
+    public Employer(int userID, String companyDescription, String companyName, String Taxcode, int UserID, int accountID, String Name, String Email, String PhoneNumber, String Address, byte[] img) {
+        super(UserID, accountID, Name, Email, PhoneNumber, Address, img);
+        this.userID = UserID;
         this.companyDescription = companyDescription;
-        this.Taxcode = taxcode;
+        this.companyName = companyName;
+        this.Taxcode = Taxcode;
     }
+
+    
 
     public String getCompanyDescription() {
         return companyDescription;
@@ -50,12 +50,20 @@ public class Employer extends User {
 
     @Override
     public int getUserID() {
-        return UserID;
+        return userID;
     }
 
     @Override
     public void setUserID(int UserID) {
-        this.UserID = UserID;
+        this.userID = UserID;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
 }

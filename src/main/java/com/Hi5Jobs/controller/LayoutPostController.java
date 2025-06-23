@@ -4,20 +4,26 @@
  */
 package com.Hi5Jobs.controller;
 
+import com.Hi5Jobs.models.Employer;
 import com.Hi5Jobs.models.Job;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.EmployeeService;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LayoutPostController {
@@ -28,8 +34,19 @@ public class LayoutPostController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping("/post")
     public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        if (accountId != null) {
+            User user = userService.findByAccountId(accountId); // tìm theo accountID
+            if (user != null && user.getImg() != null) {
+                String base64Image = Base64.getEncoder().encodeToString(user.getImg());
+            }
+            model.addAttribute("user", user);
+        }
         Integer userType = (Integer) session.getAttribute("userType");
         if (userType == 3) {
             model.addAttribute("body", "/WEB-INF/views/client/postForm.jsp");
@@ -54,10 +71,19 @@ public class LayoutPostController {
             @RequestParam("salaryFrom") String salaryFrom,
             @RequestParam("salaryTo") String salaryTo,
             HttpSession session,
-            Model model) {
-
+            Model model,
+            HttpServletResponse response) throws IOException {
         int accountID = (Integer) session.getAttribute("accountID");
         User user = userService.findByAccountId(accountID);
+        Employer employer = employeeService.getByID(user.getUserID());
+        if (employer == null
+                || employer.getCompanyName() == null || employer.getCompanyName().isEmpty()
+                || employer.getTaxcode() == null || employer.getTaxcode().isEmpty()) {
+
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write("<script>alert('Hãy cập nhật thông tin công ty trước khi đăng tuyển.'); window.history.back();   </script>");
+            return null;
+        }
         Job job = new Job();
         job.setUserID(user.getUserID());
         job.setTitle(jobTitle);
@@ -76,5 +102,62 @@ public class LayoutPostController {
         model.addAttribute("success", true);
 
         return "redirect:/post";
+    }
+
+    @RequestMapping("/settings")
+    public String showSettingProfile(HttpSession session, Model model) {
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        User user = userService.findByAccountId(accountId);
+        session.setAttribute("userID", user.getUserID());
+        model.addAttribute("user", user);
+        Employer e = employeeService.getByID(user.getUserID());
+        model.addAttribute("employee", e);
+        model.addAttribute("body", "/WEB-INF/views/client/settings.jsp");
+        return "client/layoutPost/main";
+    }
+
+    @RequestMapping("/update-profileRE")
+    public String updateRE(@RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("address") String address,
+            @RequestParam("avatar") MultipartFile avatar,
+            @RequestParam("companyname") String conpanyname,
+            @RequestParam("taxcode") String taxcode,
+            @RequestParam("companydescription") String companydescription,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        Integer userId = (Integer) session.getAttribute("userID");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        byte[] imageBytes = null;
+        try {
+            if (!avatar.isEmpty()) {
+                imageBytes = avatar.getBytes();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        User user = new User();
+        user.setUserID(userId);
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setAddress(address);
+        user.setImg(imageBytes); // có thể null nếu người dùng không thay ảnh
+
+        userService.updateUserInfo(user);
+        Employer e = new Employer();
+        e.setUserID(userId);
+        e.setCompanyName(conpanyname);
+        e.setCompanyDescription(companydescription);
+        e.setTaxcode(taxcode);
+
+        employeeService.update(e);
+        return "redirect:/settings";
     }
 }
