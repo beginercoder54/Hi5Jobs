@@ -22,26 +22,39 @@ public class LoginRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public Account mapRow(ResultSet rs, int rowNum) throws SQLException{
-        Account account= new Account();
+    public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Account account = new Account();
         account.setAccountID(rs.getInt("accountID"));
         account.setUsername(rs.getString("username"));
         account.setPassword(rs.getString("password"));
         account.setUserType(rs.getInt("userType"));
         return account;
     }
-    
-    public Account ValidAccount(String username,String password){
-        String sql="SELECT * FROM Account WHERE username=? and password= ?";
+
+    public Account getByAccountID(int accountID) {
+        String sql = "SELECT * FROM Account WHERE accountID = ?";
+        List<Account> accounts = jdbcTemplate.query(sql, this::mapRow, accountID);
+        return accounts.isEmpty() ? null : accounts.get(0);
+    }
+
+    public Account ValidAccount(String username, String password) {
+        String sql = "SELECT * FROM Account WHERE username=? and password= ?";
         List<Account> accounts = jdbcTemplate.query(sql, this::mapRow, username, password);
         return accounts.isEmpty() ? null : accounts.get(0);
     }
-    public int ValidUsername(String username){
-        String sql="SELECT * FROM Account WHERE username=?";
+
+    public int ValidUsername(String username) {
+        String sql = "SELECT * FROM Account WHERE username=?";
         List<Account> accounts = jdbcTemplate.query(sql, this::mapRow, username);
-        if(accounts.isEmpty()){
+        if (accounts.isEmpty()) {
             return 0;
         }
         return 1;
     }
+
+    public void updatePassword(int accountID, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE accountID = ?";
+        jdbcTemplate.update(sql, newPassword, accountID);
+    }
+
 }

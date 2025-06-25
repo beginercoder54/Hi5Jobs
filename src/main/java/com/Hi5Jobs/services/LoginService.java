@@ -15,15 +15,23 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class LoginService {
-    
+
     @Autowired
     private LoginRepository repo;
-    
-     
-    public Account ValidAccount(String username,String password){
+
+    public Account ValidAccount(String username, String password) {
         return repo.ValidAccount(username, password);
     }
-    public int ValidUsername(String username){
+
+    public int ValidUsername(String username) {
         return repo.ValidUsername(username);
+    }
+
+    public Account getByAccountID(int accountID) {
+        return repo.getByAccountID(accountID);
+    }
+
+    public void updatePassword(int accountID, String newPassword){
+        repo.updatePassword(accountID, newPassword);
     }
 }

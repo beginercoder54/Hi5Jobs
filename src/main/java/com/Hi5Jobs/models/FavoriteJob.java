@@ -6,10 +6,7 @@ package com.Hi5Jobs.models;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author hoang
- */
+
 public class FavoriteJob extends Job{
     private int FavoriteJobID;
 

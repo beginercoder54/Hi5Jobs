@@ -24,6 +24,7 @@ public class EmployeeRepository {
         employer.setCompanyDescription(rs.getNString("CompanyDecription"));
         employer.setTaxcode(rs.getString("TaxCode"));
         employer.setCompanyName(rs.getNString("Companyname"));
+        employer.setImgCompany(rs.getBytes("ImgCompany"));  
         return employer;
     }
 
@@ -33,13 +34,15 @@ public class EmployeeRepository {
         return employers.isEmpty() ? null : employers.get(0);
     }
 
+  
     public void updateEmployer(Employer employer) {
-        String sql = "UPDATE Employer SET Companyname = ?, TaxCode = ?, CompanyDecription = ? WHERE UserID = ?";
+        String sql = "UPDATE Employer SET CompanyName = ?, TaxCode = ?, CompanyDecription = ?, ImgCompany = ? WHERE UserID = ?";
         jdbcTemplate.update(sql,
-                employer.getCompanyName(),
-                employer.getTaxcode(),
-                employer.getCompanyDescription(),
-                employer.getUserID()
+            employer.getCompanyName(),
+            employer.getTaxcode(),
+            employer.getCompanyDescription(),
+            employer.getImgCompany(),
+            employer.getUserID()
         );
     }
 }

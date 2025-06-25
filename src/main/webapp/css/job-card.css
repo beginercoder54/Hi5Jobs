@@ -7,7 +7,7 @@ body {
 
 .job-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    grid-template-columns: repeat(3, 1fr); /* 4 cột */
     gap: 20px; /* khoảng cách giữa các thẻ */
     margin-top: 20px;
     max-width: 1475px;
@@ -26,25 +26,30 @@ body {
     transition: box-shadow 0.3s ease;
 }
 
-.job-card:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
 .job-logo img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 50%;
-    margin-right: 12px;
+    margin-right: 15px;
 }
 
-.job-info {
-    flex: 1;
+.job-info h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.job-info .description {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #444;
 }
 
 .salary {
     color: #2ea48f;
     font-weight: bold;
+    margin-right: 10px;
 }
 
 .location {
@@ -59,6 +64,7 @@ body {
     color: #444;
     cursor: pointer;
 }
+
 .filter-bar {
     background-color: #f1dc92;
     padding: 10px 20px;

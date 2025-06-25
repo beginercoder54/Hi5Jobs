@@ -4,15 +4,18 @@
  */
 package com.Hi5Jobs.controller;
 
+import com.Hi5Jobs.models.Account;
 import com.Hi5Jobs.models.Employer;
 import com.Hi5Jobs.models.Job;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
 import com.Hi5Jobs.services.EmployeeService;
 import com.Hi5Jobs.services.JobService;
+import com.Hi5Jobs.services.LoginService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import static java.awt.PageAttributes.MediaType.A;
 import java.io.IOException;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,9 @@ public class LayoutPostController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private LoginService accountService;
 
     @GetMapping("/post")
     public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
@@ -99,9 +105,9 @@ public class LayoutPostController {
         job.setStatus(1);
 
         jobService.addNewJob(job);
-        model.addAttribute("success", true);
-
-        return "redirect:/post";
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().write("<script>alert('Đăng tuyển thành công.'); window.history.back();</script>");
+        return null;
     }
 
     @RequestMapping("/settings")
@@ -111,6 +117,8 @@ public class LayoutPostController {
         session.setAttribute("userID", user.getUserID());
         model.addAttribute("user", user);
         Employer e = employeeService.getByID(user.getUserID());
+        Account acc = accountService.getByAccountID(accountId);
+        model.addAttribute("acc", acc);
         model.addAttribute("employee", e);
         model.addAttribute("body", "/WEB-INF/views/client/settings.jsp");
         return "client/layoutPost/main";
@@ -125,6 +133,7 @@ public class LayoutPostController {
             @RequestParam("companyname") String conpanyname,
             @RequestParam("taxcode") String taxcode,
             @RequestParam("companydescription") String companydescription,
+            @RequestParam("imageCompany") MultipartFile imageCompany,
             HttpSession session,
             RedirectAttributes redirectAttributes) {
 
@@ -149,15 +158,38 @@ public class LayoutPostController {
         user.setPhoneNumber(phoneNumber);
         user.setAddress(address);
         user.setImg(imageBytes); // có thể null nếu người dùng không thay ảnh
-
+        byte[] img = null;
+        try {
+            if (!imageCompany.isEmpty()) {
+                img = imageCompany.getBytes();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         userService.updateUserInfo(user);
-        Employer e = new Employer();
-        e.setUserID(userId);
-        e.setCompanyName(conpanyname);
-        e.setCompanyDescription(companydescription);
-        e.setTaxcode(taxcode);
+        Employer emp = new Employer();
+        emp.setUserID(userId);
+        emp.setCompanyName(conpanyname);
+        emp.setCompanyDescription(companydescription);
+        emp.setTaxcode(taxcode);
+        emp.setImgCompany(img);
 
-        employeeService.update(e);
+        employeeService.update(emp);
         return "redirect:/settings";
+    }
+
+    @RequestMapping("/change-password")
+    public void changePass(@RequestParam("oldpass") String oldpass, @RequestParam("newpass") String newpass, HttpSession session, HttpServletResponse response) throws IOException {
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        Account acc = accountService.getByAccountID(accountId);
+
+        response.setContentType("text/html;charset=UTF-8");
+
+        if (acc.getPassword().equals(oldpass)) {
+            accountService.updatePassword(accountId, newpass);
+            response.getWriter().write("<script>alert('✅ Cập nhật mật khẩu thành công!'); window.history.back();</script>");
+        } else {
+            response.getWriter().write("<script>alert('❌ Mật khẩu cũ không đúng!'); window.history.back();</script>");
+        }
     }
 }

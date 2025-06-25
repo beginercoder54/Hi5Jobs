@@ -4,8 +4,9 @@
  */
 package com.Hi5Jobs.controller;
 
-import com.Hi5Jobs.models.Job;
+import com.Hi5Jobs.models.FullinfoJob;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.FullInfoJobService;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +28,8 @@ public class HomePageController {
     private JobService jobService;
     @Autowired
     private UserService userService;
+    @Autowired 
+    private FullInfoJobService fulljobService;
 
     @RequestMapping({"/", "/homepage"})
     public String showLoginPage(HttpSession session, Model model) {
@@ -38,7 +41,7 @@ public class HomePageController {
             }
             model.addAttribute("user", user);
         }
-        List<Job> jobList = jobService.getAllJobs(); // Trả về danh sách Job
+        List<FullinfoJob> jobList = fulljobService.getAllActiveJobsWithEmployerInfo(); // Trả về danh sách Job
         model.addAttribute("jobs", jobList);
         model.addAttribute("body", "/WEB-INF/views/client/homepage.jsp");
         return "client/layout/main"; // sẽ gọi login.jsp
