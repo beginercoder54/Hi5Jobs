@@ -33,7 +33,11 @@ public class ApplicationService {
         return count != null && count > 0;
     }
 
-    public List<Application> getAll() {
-        return repo.getAll();
+    public List<Application> getApplicationsByJobID(int jobID) {
+        return repo.getApplicationsByJobID(jobID);
+    }
+
+    public String getUsernameByApplicationID(int applicationID) {
+        return repo.getUsernameByApplicationID(applicationID);
     }
 }

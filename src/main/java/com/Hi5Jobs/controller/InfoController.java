@@ -43,17 +43,27 @@ public class InfoController {
         model.addAttribute("body", "/WEB-INF/views/client/info.jsp");
         List<FullinfoJob> relatedJob = infoService.findByUserID(UserID, jobID);
         model.addAttribute("relatedJobs", relatedJob);
-        Integer userId = (Integer) session.getAttribute("userId");
-        List<Resume> resume = resumeService.getByUserID(userId);
-        model.addAttribute("savedCVs", resume);
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        if (accountId != null) {
+            Integer userId = (Integer) session.getAttribute("userId");
+            List<Resume> resume = resumeService.getByUserID(userId);
+            model.addAttribute("savedCVs", resume);
+        }
         return "client/layout/main";
     }
 
     @PostMapping("/apply-job")
     public String applyJob(HttpServletResponse response, HttpSession session, @RequestParam("jobID") int jobID, @RequestParam("subject") String subject, @RequestParam("message") String message, @RequestParam("cvFileID") int resumeID) throws IOException {
+
         Application app = new Application();
         Integer accountId = (Integer) session.getAttribute("accountID");
         User user = userService.findByAccountId(accountId);
+
+        if (applicationService.exists(user.getUserID(), jobID)) {
+            response.getWriter().write("<script>alert('Bạn đã nộp hồ sơ cho công việc này rồi!'); window.history.back();</script>");
+            return null;
+        }
+
         app.setUserID(user.getUserID());
         app.setCoverletter(subject);
         app.setNotes(message);
@@ -63,11 +73,6 @@ public class InfoController {
         app.setAppDate(LocalDateTime.now());
         applicationService.save(app);
         response.setContentType("text/html;charset=UTF-8");
-        if (applicationService.exists(user.getUserID(), jobID)) {
-            response.getWriter().write("<script>alert('Bạn đã nộp hồ sơ cho công việc này rồi!'); window.history.back();</script>");
-            return null;
-        }
-
         response.getWriter().write(
                 "<script>alert('Nộp thành công.'); window.history.back();</script>");
         return null;

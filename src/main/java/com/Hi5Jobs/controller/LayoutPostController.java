@@ -5,10 +5,12 @@
 package com.Hi5Jobs.controller;
 
 import com.Hi5Jobs.models.Account;
+import com.Hi5Jobs.models.Application;
 import com.Hi5Jobs.models.Employer;
 import com.Hi5Jobs.models.Job;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.AppUserService;
 import com.Hi5Jobs.services.ApplicationService;
 import com.Hi5Jobs.services.EmployeeService;
 import com.Hi5Jobs.services.JobService;
@@ -17,7 +19,9 @@ import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +49,9 @@ public class LayoutPostController {
 
     @Autowired
     private ApplicationService applicationService;
+
+    @Autowired
+    private AppUserService appuserService;
 
     @GetMapping("/post")
     public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
@@ -196,9 +203,37 @@ public class LayoutPostController {
         }
     }
 
-    @RequestMapping("/manage-cv")
-    public String show(Model model) {
+    @GetMapping("/manage-applications")
+    public String manageApplications(HttpSession session,
+            @RequestParam(value = "jobID", required = false) Integer jobID,
+            Model model) {
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        User employer = userService.findByAccountId(accountId);
 
+        // Danh sách job của employer
+        List<Job> jobs = jobService.getAllJobsbyID(employer.getUserID());
+        model.addAttribute("jobs", jobs);
+
+        // Nếu có chọn jobID thì lọc application theo JobID
+        List<Application> apps = applicationService.getApplicationsByJobID(jobID);
+
+        model.addAttribute("applications", apps);
+        model.addAttribute("selectedJobID", jobID); // giữ trạng thái lựa chọn
+        model.addAttribute("body", "/WEB-INF/views/client/managecv.jsp");
+        return "client/layoutPost/main";
+    }
+
+    @GetMapping("/manage-cv")
+    public String s(HttpSession session,
+            Model model) {
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        User employer = userService.findByAccountId(accountId);
+
+        // Danh sách job của employer
+        List<Job> jobs = jobService.getAllJobsbyID(employer.getUserID());
+        model.addAttribute("jobs", jobs);
+
+        // giữ trạng thái lựa chọn
         model.addAttribute("body", "/WEB-INF/views/client/managecv.jsp");
         return "client/layoutPost/main";
     }

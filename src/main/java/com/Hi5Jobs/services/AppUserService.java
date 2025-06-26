@@ -4,26 +4,18 @@
  */
 package com.Hi5Jobs.services;
 
-import com.Hi5Jobs.models.Job;
-import com.Hi5Jobs.repository.JobRepository;
+import com.Hi5Jobs.models.ApplicatiowithUsername;
+import com.Hi5Jobs.repository.AppUserRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class JobService {
+public class AppUserService {
     @Autowired
-    private JobRepository repo;
+    private AppUserRepo repo;
     
-    public void addNewJob(Job job){
-        repo.addNewJob(job);
+    public List<ApplicatiowithUsername> getAllWithUserDetails(int jobID) {
+        return repo.getAllWithUserDetails(jobID);
     }
-    
-     public List<Job> getAllJobs() {
-        return repo.getAllJobs();
-     }
-     public List<Job> getAllJobsbyID(int userID) {
-         return repo.getAllJobsbyID(userID);
-     }
 }

@@ -62,9 +62,16 @@ public class ApplicationRepository {
         );
     }
 
-    public List<Application> getAll() {
-        String sql = "SELECT * FROM Application";
-        return jdbcTemplate.query(sql, new JobApplicationMapper());
+    public List<Application> getApplicationsByJobID(int jobID) {
+        String sql = "SELECT * FROM Application WHERE JobID = ?";
+        return jdbcTemplate.query(sql, new JobApplicationMapper(), jobID);
     }
 
+    public String getUsernameByApplicationID(int applicationID) {
+        String sql = "SELECT u.Username "
+                + "FROM Application a "
+                + "JOIN Users u ON a.UserID = u.UserID "
+                + "WHERE a.ApplicationID = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, applicationID);
+    }
 }

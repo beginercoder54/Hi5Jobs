@@ -58,4 +58,8 @@ public class JobRepository {
         return jdbcTemplate.query(sql, this::mapRow);
     }
 
+    public List<Job> getAllJobsbyID(int userID) {
+        String sql = "SELECT * FROM Job WHERE UserID = ?";
+        return jdbcTemplate.query(sql, this::mapRow,userID);
+    }
 }
