@@ -9,13 +9,13 @@ import com.Hi5Jobs.models.Employer;
 import com.Hi5Jobs.models.Job;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.ApplicationService;
 import com.Hi5Jobs.services.EmployeeService;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.LoginService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import static java.awt.PageAttributes.MediaType.A;
 import java.io.IOException;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,9 @@ public class LayoutPostController {
 
     @Autowired
     private LoginService accountService;
+
+    @Autowired
+    private ApplicationService applicationService;
 
     @GetMapping("/post")
     public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
@@ -191,5 +194,12 @@ public class LayoutPostController {
         } else {
             response.getWriter().write("<script>alert('❌ Mật khẩu cũ không đúng!'); window.history.back();</script>");
         }
+    }
+
+    @RequestMapping("/manage-cv")
+    public String show(Model model) {
+
+        model.addAttribute("body", "/WEB-INF/views/client/managecv.jsp");
+        return "client/layoutPost/main";
     }
 }
