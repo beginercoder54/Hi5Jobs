@@ -1,11 +1,21 @@
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="<c:url value='/css/headerLayoutPost.css'/>" />
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="section">
+                <p class="section-title">Quản lý người dùng</p>
+                <div class="item"><a href="${pageContext.request.contextPath}/admin/home"><img src="${pageContext.request.contextPath}/image/settings.png"> Quản lý ứng viên</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/admin/homeRe"><img src="${pageContext.request.contextPath}/image/settings.png"> Quản lý nhà truyển dụng</a></div>
+            </div>
+            <div class="section">
+                <p class="section-title">Quản lý thông tin</p>
+                <div class="item"><a href="#" ><img src="${pageContext.request.contextPath}/image/icon3.png"> Quản lý thông tin tuyển dụng</a></div>
+                <div class="item"><a href="#"><img src="${pageContext.request.contextPath}/image/icon4.png"> Quản lý ứng tuyển</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/manage-cv"><img src="${pageContext.request.contextPath}/image/icon6.png"> Quản lý CV</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/reports"><img src="${pageContext.request.contextPath}/image/icon7.png"> Báo Cáo</a></div>
+            </div>
+        </div>
+    </div>
+</body>

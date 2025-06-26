@@ -4,57 +4,29 @@
  */
 package com.Hi5Jobs.models;
 
-import java.awt.Image;
-
-/**
- *
- * @author hoang
- */
-public class Jobseeker extends User {
+public class Employee {
 
     private int UserID;
     private String Name;
     private String Email;
     private String PhoneNumber;
     private String Address;
-    private String education;
-    private String experience;
+    private String companyDescription;
+    private String companyName;
+    private String Taxcode;
 
-    public Jobseeker() {
+    public Employee() {
     }
 
-    public Jobseeker(int UserID, String education, String experience) {
-        this.UserID = UserID;
-        this.education = education;
-        this.experience = experience;
-    }
-
-    public Jobseeker(int UserID, String Name, String Email, String PhoneNumber, String Address, String education, String experience) {
+    public Employee(int UserID, String Name, String Email, String PhoneNumber, String Address, String companyDescription, String companyName, String Taxcode) {
         this.UserID = UserID;
         this.Name = Name;
         this.Email = Email;
         this.PhoneNumber = PhoneNumber;
         this.Address = Address;
-        this.education = education;
-        this.experience = experience;
-    }
-
-   
-
-    public String getEducation() {
-        return education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
+        this.companyDescription = companyDescription;
+        this.companyName = companyName;
+        this.Taxcode = Taxcode;
     }
 
     public int getUserID() {
@@ -97,6 +69,29 @@ public class Jobseeker extends User {
         this.Address = Address;
     }
 
+    public String getCompanyDescription() {
+        return companyDescription;
+    }
 
+    public void setCompanyDescription(String companyDescription) {
+        this.companyDescription = companyDescription;
+    }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getTaxcode() {
+        return Taxcode;
+    }
+
+    public void setTaxcode(String Taxcode) {
+        this.Taxcode = Taxcode;
+    }
+    
+    
 }
