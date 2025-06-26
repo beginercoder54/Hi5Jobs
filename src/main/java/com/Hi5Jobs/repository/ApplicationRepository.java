@@ -47,4 +47,24 @@ public class ApplicationRepository {
         return jdbcTemplate.query(sql, new JobApplicationMapper(), userID);
     }
 
+    public void save(Application app) {
+        String sql = "INSERT INTO Application (resumeID, JobID, UserID, ApplicationDate, Status, CoverLetter, Notes) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql,
+                app.getResumeID(),
+                app.getJobID(),
+                app.getUserID(),
+                Timestamp.valueOf(app.getAppDate()), // LocalDateTime -> Timestamp
+                app.getStatus(),
+                app.getCoverletter(),
+                app.getNotes()
+        );
+    }
+
+    public List<Application> getAll() {
+        String sql = "SELECT * FROM Application";
+        return jdbcTemplate.query(sql, new JobApplicationMapper());
+    }
+
 }

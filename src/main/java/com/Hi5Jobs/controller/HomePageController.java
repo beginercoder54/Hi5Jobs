@@ -28,14 +28,16 @@ public class HomePageController {
     private JobService jobService;
     @Autowired
     private UserService userService;
-    @Autowired 
+    @Autowired
     private FullInfoJobService fulljobService;
 
     @RequestMapping({"/", "/homepage"})
     public String showLoginPage(HttpSession session, Model model) {
         Integer accountId = (Integer) session.getAttribute("accountID");
+
         if (accountId != null) {
             User user = userService.findByAccountId(accountId); // tìm theo accountID
+            session.setAttribute("userId", user.getUserID());
             if (user != null && user.getImg() != null) {
                 String base64Image = Base64.getEncoder().encodeToString(user.getImg());
             }
@@ -48,7 +50,7 @@ public class HomePageController {
     }
 
     @RequestMapping("/recruiterhomepage")
-    public String changeRecruiterPage(HttpSession session,Model model) {
+    public String changeRecruiterPage(HttpSession session, Model model) {
         Integer accountId = (Integer) session.getAttribute("accountID");
         if (accountId != null) {
             User user = userService.findByAccountId(accountId); // tìm theo accountID

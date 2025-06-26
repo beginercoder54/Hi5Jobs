@@ -108,6 +108,26 @@
                     <!-- Hồ sơ xin việc -->
                     <div class="section" id="section-cv" style="display: none;">
                         <h2><strong>Hồ sơ xin việc</strong></h2>
+                        <c:choose>
+                            <c:when test="${not empty application}">
+                                <div class="cv-grid">
+                                    <c:forEach var="res" items="${application}">
+                                        <div class="cv-item">
+                                            <img src="data:image/jpeg;base64,${res.base64Image}" alt="CV" />
+
+                                            <a href="data:image/jpeg;base64,${res.base64Image}" 
+                                               download="cv_${res.resumeID}.jpg"
+                                               class="download-btn">
+                                                Tải xuống
+                                            </a>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <p>Bạn chưa nộp công việc nào</p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                     <!-- Resume -->

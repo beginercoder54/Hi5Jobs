@@ -105,8 +105,7 @@
                     <input type="text" id="subject" name="subject" class="input-text" required>
 
                     <!-- Nội dung thư -->
-                    <textarea name="message" class="message-area" rows="6" >
-                    </textarea>
+                    <textarea name="message" class="message-area" rows="6" ></textarea>
 
                     <!-- Kéo & thả hoặc chọn file -->
                     <div class="cv-select-section">

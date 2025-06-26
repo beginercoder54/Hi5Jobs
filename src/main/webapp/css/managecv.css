@@ -1,0 +1,58 @@
+.application-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.application-table thead {
+    background-color: #fbc169; /* header cam */
+    color: #333;
+}
+
+.application-table thead th {
+    padding: 14px;
+    text-align: left;
+}
+
+.application-table tbody td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.application-table tbody tr.odd {
+    background-color: #fff7e9;
+}
+
+.application-table tbody tr.even {
+    background-color: #ffffff;
+}
+
+.action-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.icon {
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon.view {
+    color: orange;
+}
+
+.icon.download {
+    color: black;
+}
+
+.icon.approve {
+    color: white;
+    background-color: #29cc7a;
+}
