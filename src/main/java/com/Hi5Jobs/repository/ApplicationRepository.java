@@ -74,4 +74,11 @@ public class ApplicationRepository {
                 + "WHERE a.ApplicationID = ?";
         return jdbcTemplate.queryForObject(sql, String.class, applicationID);
     }
+
+    public Application getResumeIDByApplicationID(int applicationID) {
+        String sql = "SELECT * FROM Application WHERE ApplicationID = ?";
+        List<Application> app = jdbcTemplate.query(sql, new JobApplicationMapper(), applicationID);
+        return app.isEmpty() ? null : app.get(0);
+    }
+
 }

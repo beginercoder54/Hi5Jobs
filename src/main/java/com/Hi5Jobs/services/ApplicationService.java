@@ -40,4 +40,7 @@ public class ApplicationService {
     public String getUsernameByApplicationID(int applicationID) {
         return repo.getUsernameByApplicationID(applicationID);
     }
+    public Application getResumeIDByApplicationID(int applicationID) {
+        return repo.getResumeIDByApplicationID(applicationID);
+    }
 }

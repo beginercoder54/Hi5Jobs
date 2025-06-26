@@ -21,4 +21,7 @@ public class ResumeService {
     public void save(Resume resume){
         repo.save(resume);
     }
+     public Resume getResumeById(int resumeID) {
+         return repo.getResumeById(resumeID);
+     }
 }

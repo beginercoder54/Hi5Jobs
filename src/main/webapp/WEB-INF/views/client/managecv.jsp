@@ -36,16 +36,61 @@
                     <tr class="${status.index % 2 == 0 ? 'even' : 'odd'}">
                         <td>${app.applicationID}</td>
                         <td>${app.appDate}</td>
-            <td class="action-icons">
-                <a href="view/${app.applicationID}" class="icon view" title="Xem"><img src="${pageContext.request.contextPath}/image/" class="fas fa-eye"></i></a>
-                <a href="download/${app.applicationID}" class="icon download" title="Tải CV"><i class="fas fa-download"></i></a>
-                <a href="approve/${app.applicationID}" class="icon approve" title="Phê duyệt"><i class="fas fa-check-circle"></i></a>
-            </td>
-        </tr>
-    </c:forEach>
-</tbody>
-</table>
+                        <td class="action-icons">
+                            <a href="view/${app.applicationID}" class="icon view" title="Tải CV">
+                                <img src="${pageContext.request.contextPath}/image/view.png" alt="Xem" style="width:20px; height:20px;"  onclick="openPopup()" style="cursor:pointer;">
+                            </a>
+                            <a href="download/${app.applicationID}" class="icon download" title="Tải CV">
+                                <img src="${pageContext.request.contextPath}/image/download.png" alt="Tải CV" style="width:20px; height:20px;" style="cursor:pointer;">
+                            </a>
+                            <a href="approve/${app.applicationID}" class="icon approve" title="Phê duyệt">
+                                <img src="${pageContext.request.contextPath}/image/check.png" alt="Phê duyệt" style="width:20px; height:20px;" style="cursor:pointer;">
+                            </a>
+                        </td>
+                    </tr>
+                <div id="cvPopup" class="popup-overlay">
+                    <div class="popup-content">
+                        <h3 style="color: #f28c28;">GỬI CV</h3>
+                        <form action="${pageContext.request.contextPath}/apply-job" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="jobID" value="${job.jobID}" />
 
+                            <!-- Tiêu đề thư -->
+                            <label for="subject">Tiêu đề Thư :</label>
+                            <input type="text" id="subject" name="subject" class="input-text" required disabled placeholder="${app.coverletter}" >
+
+                            <!-- Nội dung thư -->
+                            <textarea name="message" class="message-area" rows="6" disabled>${app.notes}</textarea>
+
+                            <!-- Kéo & thả hoặc chọn file -->
+                            <div class="cv-select-section">
+                                <label for="savedCV">Resume:</label>
+                                <div class="cv-preview">
+                                    <img id="cvImagePreview" src="" alt="Xem trước CV" style="max-width: 100%; display: none; border: 1px solid #ccc; padding: 10px;" />
+                                </div>
+
+                            </div>
+
+                            <!-- Nút -->
+                            <div class="popup-buttons">
+                                <button type="button" class="btn-cancel" onclick="closePopup()">Thoát</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </c:forEach>
+        </tbody>
+    </table>
+
+    <script>
+        function openPopup() {
+            document.getElementById('cvPopup').style.display = "flex";
+
+        }
+
+        function closePopup() {
+            document.getElementById('cvPopup').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>

@@ -38,10 +38,10 @@ public class ResumeRepository {
         return resume;
     }
 
-   public List<Resume> getListByUserID(int userID) {
-    String sql = "SELECT * FROM Resume WHERE UserID = ?";
-    return jdbcTemplate.query(sql, this::mapRow, userID); // ✅ trả đúng List<Resume>
-}
+    public List<Resume> getListByUserID(int userID) {
+        String sql = "SELECT * FROM Resume WHERE UserID = ?";
+        return jdbcTemplate.query(sql, this::mapRow, userID); // ✅ trả đúng List<Resume>
+    }
 
     public void save(Resume resume) {
         String sql = "INSERT INTO Resume (UserID, uploadDate, fileResume) VALUES (?, ?, ?)";
@@ -50,5 +50,11 @@ public class ResumeRepository {
                 Timestamp.valueOf(resume.getUploadDate()),
                 resume.getImgResume() // dạng byte[]
         );
+    }
+
+    public Resume getResumeById(int resumeID) {
+        String sql = "SELECT * FROM Resume WHERE ResumeID = ?";
+         List<Resume> employers = jdbcTemplate.query(sql, this::mapRow, resumeID);
+        return employers.isEmpty() ? null : employers.get(0);
     }
 }

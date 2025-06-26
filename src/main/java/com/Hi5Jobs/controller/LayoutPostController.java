@@ -8,6 +8,7 @@ import com.Hi5Jobs.models.Account;
 import com.Hi5Jobs.models.Application;
 import com.Hi5Jobs.models.Employer;
 import com.Hi5Jobs.models.Job;
+import com.Hi5Jobs.models.Resume;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
 import com.Hi5Jobs.services.AppUserService;
@@ -15,17 +16,18 @@ import com.Hi5Jobs.services.ApplicationService;
 import com.Hi5Jobs.services.EmployeeService;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.LoginService;
+import com.Hi5Jobs.services.ResumeService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +54,8 @@ public class LayoutPostController {
 
     @Autowired
     private AppUserService appuserService;
+    @Autowired
+    private ResumeService resumeService;
 
     @GetMapping("/post")
     public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
@@ -237,4 +241,6 @@ public class LayoutPostController {
         model.addAttribute("body", "/WEB-INF/views/client/managecv.jsp");
         return "client/layoutPost/main";
     }
+
+
 }
