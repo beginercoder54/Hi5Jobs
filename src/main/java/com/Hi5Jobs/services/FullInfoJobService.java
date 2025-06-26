@@ -12,10 +12,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FullInfoJobService {
+
     @Autowired
     private FullInfoJobRepository repo;
-    
-      public List<FullinfoJob> getAllActiveJobsWithEmployerInfo() {
+
+    public List<FullinfoJob> getAllActiveJobsWithEmployerInfo() {
         return repo.getAllJobsWithEmployerInfo();
     }
+
+    public List<FullinfoJob> searchJob(String keyword) {
+        return repo.searchJobs(keyword);
+    }
+
+    public FullinfoJob findByID(int jobID) {
+        return repo.findByID(jobID);
+    }
+     public List<FullinfoJob> findByUserID(int UserID,int jobID) {
+         return repo.findByUserID(UserID,jobID);
+     }
 }

@@ -135,3 +135,12 @@ body {
     height: auto;
     display: block;
 }
+.search-form {
+    display: flex; /* hoặc inline-flex để giữ layout ngang */
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+}

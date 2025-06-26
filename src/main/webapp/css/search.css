@@ -1,10 +1,6 @@
-body {
-    font-family: sans-serif;
-    background-color: #f6efe4;
-    margin: 0;
-    padding: 20px;
+body{
+    background-color: rgba(211, 186, 212, 0.8);
 }
-
 .job-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 cột */
@@ -23,7 +19,6 @@ body {
     align-items: flex-start;
     position: relative;
     transition: box-shadow 0.3s ease;
-    cursor:pointer;
 }
 
 .job-logo img {
@@ -178,16 +173,4 @@ body {
     cursor: pointer;
     margin: 0;
     text-align: left;
-}
-.image-header {
-    padding: 8px 0;
-    width: 100%;
-    max-width: 1400px; /* Phù hợp với thanh navbar */
-    margin: 0 auto;
-    text-align: center;
-}
-.image-header img {
-    width: 100%;       /* Đảm bảo ảnh chiếm đủ chiều rộng container */
-    height: auto;
-    display: block;
 }

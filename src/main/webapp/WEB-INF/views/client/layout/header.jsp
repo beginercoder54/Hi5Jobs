@@ -10,13 +10,15 @@
             <!-- Logo + Nộp CV -->
             <div class="logo-section">
                 <img src="${pageContext.request.contextPath}/image/logo-hi5jobs.png" alt="Logo">
-                <strong class="submit-cv-text">Hi5Jobs</strong>
+                <strong class="submit-cv-text" onclick="window.location.href='/Hi5Jobs/homepage'" style="cursor: pointer;">Hi5Jobs</strong>
             </div>
 
             <!-- Thanh tìm kiếm -->
             <div class="search-bar">
-                <img src="${pageContext.request.contextPath}/image/search-icon.png" alt="Search">
-                <input type="text" placeholder="Search">
+                <form class="search-form" action="${pageContext.request.contextPath}/search" method="get">
+                    <img src="${pageContext.request.contextPath}/image/search-icon.png" alt="Search">
+                    <input type="text" name="query" placeholder="Search"/>
+                </form>
             </div>
 
             <!-- Dropdown Công việc -->
@@ -52,7 +54,5 @@
 
         </div> 
     </div>
-    <div class="image-header">
-        <img src="${pageContext.request.contextPath}/image/imageheader.png" alt="imageheader">
-    </div>
+
 </body>

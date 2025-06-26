@@ -122,15 +122,12 @@ body {
     white-space: nowrap;
     gap: 16px;
 }
-.image-header {
-    padding: 8px 0;
-    width: 100%;
-    max-width: 1400px; /* Phù hợp với thanh navbar */
-    margin: 0 auto;
-    text-align: center;
-}
-.image-header img {
-    width: 100%;       /* Đảm bảo ảnh chiếm đủ chiều rộng container */
-    height: auto;
-    display: block;
+.search-form {
+    display: flex; /* hoặc inline-flex để giữ layout ngang */
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
 }

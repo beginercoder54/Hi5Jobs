@@ -1,8 +1,3 @@
-<%-- 
-    Document   : rolepage
-    Created on : May 23, 2025, 1:47:16 PM
-    Author     : hoang
---%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.Hi5Jobs.repository;
 
 import com.Hi5Jobs.models.FullinfoJob;
@@ -76,4 +72,43 @@ public class FullInfoJobRepository {
         return jdbcTemplate.query(sql, new JobDetailMapper());
     }
 
+    public List<FullinfoJob> searchJobs(String keyword) {
+        String sql = "SELECT u.UserID, u.accountID, u.Name, u.Email, u.PhoneNumber, u.Address,"
+                + " j.JobID, j.Title, j.DecriptionJob, j.Location, j.Salary, j.Requirement, j.Gentle,"
+                + " j.NumberRecruitment, j.UploadDate, j.Status, j.Age, j.salaryType,"
+                + " e.Companyname, e.TaxCode, e.CompanyDecription, e.ImgCompany "
+                + "FROM Job j "
+                + "JOIN Users u ON j.UserID = u.UserID "
+                + "JOIN Employer e ON u.UserID = e.UserID "
+                + "WHERE j.Title LIKE ? OR e.Companyname LIKE ?";
+
+        String keywordLike = "%" + keyword + "%";
+        return jdbcTemplate.query(sql, new JobDetailMapper(), keywordLike, keywordLike);
+    }
+
+    public FullinfoJob findByID(int jobID) {
+        String sql = "SELECT u.UserID, u.accountID, u.Name, u.Email, u.PhoneNumber, u.Address,"
+                + " j.JobID, j.Title, j.DecriptionJob, j.Location, j.Salary, j.Requirement, j.Gentle,"
+                + " j.NumberRecruitment, j.UploadDate, j.Status, j.Age, j.salaryType,"
+                + " e.Companyname, e.TaxCode, e.CompanyDecription, e.ImgCompany "
+                + "FROM Job j "
+                + "JOIN Users u ON j.UserID = u.UserID "
+                + "JOIN Employer e ON u.UserID = e.UserID "
+                + "WHERE j.JobID = ?";
+
+        List<FullinfoJob> jobs = jdbcTemplate.query(sql, new JobDetailMapper(), jobID);
+        return jobs.isEmpty() ? null : jobs.get(0);
+    }
+
+    public List<FullinfoJob> findByUserID(int UserID,int jobID) {
+        String sql = "SELECT u.UserID, u.accountID, u.Name, u.Email, u.PhoneNumber, u.Address,"
+                + " j.JobID, j.Title, j.DecriptionJob, j.Location, j.Salary, j.Requirement, j.Gentle,"
+                + " j.NumberRecruitment, j.UploadDate, j.Status, j.Age, j.salaryType,"
+                + " e.Companyname, e.TaxCode, e.CompanyDecription, e.ImgCompany "
+                + "FROM Job j "
+                + "JOIN Users u ON j.UserID = u.UserID "
+                + "JOIN Employer e ON u.UserID = e.UserID "
+                + "WHERE u.UserID = ? AND j.JobID != ?";
+        return jdbcTemplate.query(sql, new JobDetailMapper(), UserID,jobID);  
+    }
 }

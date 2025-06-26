@@ -14,9 +14,11 @@
             </div>
 
             <!-- Thanh tìm kiếm -->
-            <div class="search-bar">
-                <img src="${pageContext.request.contextPath}/image/search-icon.png" alt="Search">
-                <input type="text" placeholder="Search">
+             <div class="search-bar">
+                <form class="search-form" action="${pageContext.request.contextPath}/search" method="get">
+                    <img src="${pageContext.request.contextPath}/image/search-icon.png" alt="Search">
+                    <input type="text" name="query" placeholder="Search"/>
+                </form>
             </div>
 
             <!-- Dropdown Công việc -->

@@ -19,7 +19,7 @@
                     <!-- Logo + Nộp CV -->
                     <div class="logo-section">
                         <img src="${pageContext.request.contextPath}/image/logo-hi5jobs.png" alt="Logo">
-                        <strong class="submit-cv-text">Hi5Jobs</strong>
+                        <strong class="submit-cv-text" onclick="window.location.href='/Hi5Jobs/homepage'" style="cursor: pointer;">Hi5Jobs</strong>
                     </div>
 
                     <!-- Thanh tìm kiếm -->
@@ -135,7 +135,7 @@
                         </c:choose>
 
                         <button onclick="openPopup()">Upload CV</button>
-                        
+
                         <!-- Popup Upload Form -->
                         <div id="uploadPopup" class="popup-overlay">
                             <div class="popup-content">
@@ -157,7 +157,7 @@
                         <script>
                             function openPopup() {
                                 document.getElementById("uploadPopup").style.display = "flex";
-                                
+
                             }
 
                             function closePopup() {

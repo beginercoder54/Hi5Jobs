@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
  * @author hoang
  */
 public class Application {
+    private int resumeID;
+    private int jobID;
+    private int userID;
     private int ApplicationID;
     private LocalDateTime AppDate;
     private int status;
@@ -20,7 +23,10 @@ public class Application {
     public Application() {
     }
 
-    public Application(int ApplicationID, LocalDateTime AppDate, int status, String Coverletter, String Notes) {
+    public Application(int resumeID, int jobID, int userID, int ApplicationID, LocalDateTime AppDate, int status, String Coverletter, String Notes) {
+        this.resumeID = resumeID;
+        this.jobID = jobID;
+        this.userID = userID;
         this.ApplicationID = ApplicationID;
         this.AppDate = AppDate;
         this.status = status;
@@ -28,6 +34,9 @@ public class Application {
         this.Notes = Notes;
     }
 
+    
+
+   
     public int getApplicationID() {
         return ApplicationID;
     }
@@ -66,6 +75,30 @@ public class Application {
 
     public void setNotes(String Notes) {
         this.Notes = Notes;
+    }
+
+    public int getJobID() {
+        return jobID;
+    }
+
+    public void setJobID(int jobID) {
+        this.jobID = jobID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getResumeID() {
+        return resumeID;
+    }
+
+    public void setResumeID(int resumeID) {
+        this.resumeID = resumeID;
     }
     
 }
