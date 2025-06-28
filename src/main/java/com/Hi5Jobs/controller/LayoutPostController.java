@@ -5,14 +5,17 @@
 package com.Hi5Jobs.controller;
 
 import com.Hi5Jobs.models.Account;
+import com.Hi5Jobs.models.Alert;
 import com.Hi5Jobs.models.Application;
 import com.Hi5Jobs.models.Employer;
+import com.Hi5Jobs.models.FullApplication;
 import com.Hi5Jobs.models.Job;
-import com.Hi5Jobs.models.Resume;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.AlertService;
 import com.Hi5Jobs.services.ApplicationService;
 import com.Hi5Jobs.services.EmployeeService;
+import com.Hi5Jobs.services.FullApplicationService;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.LoginService;
 import com.Hi5Jobs.services.ResumeService;
@@ -20,13 +23,16 @@ import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +42,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class LayoutPostController {
 
+    @Autowired
+    private FullApplicationService fullappService;
+
+    @Autowired
+    private JobService repojob;
     @Autowired
     private JobService jobService;
 
@@ -52,6 +63,8 @@ public class LayoutPostController {
     private ApplicationService applicationService;
     @Autowired
     private ResumeService resumeService;
+    @Autowired
+    private AlertService alertService;
 
     @GetMapping("/post")
     public String show(HttpSession session, Model model, HttpServletResponse response) throws IOException {
@@ -215,7 +228,7 @@ public class LayoutPostController {
         model.addAttribute("jobs", jobs);
 
         // Nếu có chọn jobID thì lọc application theo JobID
-        List<Application> apps = applicationService.getApplicationsByJobID(jobID);
+        List<FullApplication> apps = fullappService.getAppByID(jobID);
 
         model.addAttribute("applications", apps);
         model.addAttribute("selectedJobID", jobID); // giữ trạng thái lựa chọn
@@ -238,5 +251,100 @@ public class LayoutPostController {
         return "client/layoutPost/main";
     }
 
+    @RequestMapping("/delete-job")
+    public String deletrjob(@RequestParam("jobID") int jobID, Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userID");
+        if (userId != null) {
+            repojob.deleteByJobID(jobID);
+            List<Job> j = repojob.getAllJobs();
+            model.addAttribute("jobseekers", j);
+            model.addAttribute("body", "/WEB-INF/views/client/Job.jsp");
+            return "/client/layoutPost/main";
+        }
+        return "client/login";
+    }
 
+    @RequestMapping("/job")
+    public String listJob(Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userID");
+        if (userId != null) {
+            List<Job> j = repojob.getAllJobs();
+            model.addAttribute("jobseekers", j);
+            model.addAttribute("body", "/WEB-INF/views/client/Job.jsp");
+            return "/client/layoutPost/main";
+        }
+        return "client/login";
+    }
+
+    @RequestMapping("/search-job")
+    public String searchJob(@RequestParam("keyword") String k, Model model) {
+        List<Job> j = repojob.searchJobs(k);
+        model.addAttribute("jobseekers", j);
+        model.addAttribute("body", "/WEB-INF/views/client/Job.jsp");
+        return "/client/layoutPost/main";
+    }
+
+    @RequestMapping("/view-application")
+    public String viewapplication(@RequestParam("resumeID") int resumeID, @RequestParam("UserID") int UserID, Model model) {
+        FullApplication app = fullappService.getbyID(resumeID, UserID);
+        model.addAttribute("app", app);
+        model.addAttribute("body", "/WEB-INF/views/client/view-application.jsp");
+        return "/client/layoutPost/main";
+    }
+
+    @RequestMapping("/approve")
+    public String updateStatus(@RequestParam("ApplicationID") int ID,@RequestParam("UserID") int userID, Model model, HttpSession session) {
+        fullappService.updateApplicationStatus(ID, 1);
+        Alert a = new Alert();
+        Integer accountId = (Integer) session.getAttribute("accountID");
+        User user = userService.findByAccountId(accountId);
+        a.setNameUser(user.getName());
+        a.setMessage("Đã chấp nhận hồ sơ");
+        a.setDate(LocalDateTime.now());
+        a.setUserID(userID);
+
+        alertService.addAlert(a);
+        model.addAttribute("body", "/WEB-INF/views/client/managecv.jsp");
+        return "redirect:/manage-cv";
+    }
+
+    @RequestMapping("/reports")
+    private String report(Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userID");
+
+        List<Job> jobs = jobService.getAllJobsbyID(userId);
+
+        List<Integer> jobIDs = new ArrayList<>();
+        for (Job job : jobs) {
+            jobIDs.add(job.getJobID());
+        }
+
+        Map<Integer, Integer> applicationCountMap = new HashMap<>();
+
+        for (Integer jobID : jobIDs) {
+            List<Application> applications = applicationService.getApplicationsByJobID(jobID);
+            int countApplication = applications.size(); // đếm số lượng
+            applicationCountMap.put(jobID, countApplication); // lưu vào map
+        }
+
+        int totalCount = 0;
+
+        for (Map.Entry<Integer, Integer> entry : applicationCountMap.entrySet()) {
+            if (entry.getValue() == 1) {
+                totalCount++; // mỗi job có đúng 1 application thì tăng biến đếm
+            }
+        }
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("body", "/WEB-INF/views/client/report.jsp");
+        return "/client/layoutPost/main";
+    }
+
+    @RequestMapping("/notification-re")
+    public String showNotification(Model model,HttpSession session) {
+         Integer userId = (Integer) session.getAttribute("userID");
+        List<Alert> a = alertService.getAlertByUserID(userId);
+        model.addAttribute("a", a);
+        model.addAttribute("body", "/WEB-INF/views/client/alert-Re.jsp");
+        return "/client/layoutPost/main";
+    }
 }

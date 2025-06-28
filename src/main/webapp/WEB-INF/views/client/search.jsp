@@ -14,7 +14,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:forEach var="job" items="${jobs}">
-                        <div class="job-card">
+                        <div class="job-card" >
                             <!-- Avatar bên trái -->
                             <div class="job-logo">
                                 <img class="avatar"
@@ -25,8 +25,8 @@
                             <!-- Nội dung bên phải -->
                             <div class="job-info">
                                 <div class="title-row">
-                                    <h4>${job.title}</h4><br>
-                                    <span class="favorite">♡</span>
+                                    <h4 onclick="window.location.href='<c:url value='/info?jobID=${job.jobID}&UserID=${job.userID}'/>'">${job.title}</h4><br>
+                                    <a href="${pageContext.request.contextPath}/addFavorite?jobID=${job.jobID}"><span class="favorite" >♡</span></a>
                                 </div>
                                 <div class="company">${job.companyName}</div>
                                 <div class="meta">

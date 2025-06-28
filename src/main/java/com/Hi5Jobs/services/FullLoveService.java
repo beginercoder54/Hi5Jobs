@@ -1,0 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.Hi5Jobs.services;
+
+import com.Hi5Jobs.models.FullLoveJob;
+import com.Hi5Jobs.repository.FullLoveJobRepo;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class FullLoveService {
+
+@Autowired 
+private FullLoveJobRepo repo;
+
+     public List<FullLoveJob> getByUserID(int userID) {
+         return repo.getByUserID(userID);
+     }
+    
+}

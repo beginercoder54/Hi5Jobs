@@ -47,7 +47,7 @@
 
                     <!-- Dropdown menu -->
                     <div class="menu-dropdown">
-                        <a href="${pageContext.request.contextPath}/notifications">🔔 Thông báo</a>
+                        <a href="${pageContext.request.contextPath}/profile?section=notification">🔔 Thông báo</a>
                         <a href="${pageContext.request.contextPath}/logout">🚪 Đăng xuất</a>
                     </div>
                 </div>

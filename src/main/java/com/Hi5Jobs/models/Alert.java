@@ -15,15 +15,17 @@ public class Alert {
     private String nameUser;
     private String message;
     private LocalDateTime date;
+    private int UserID;
 
     public Alert() {
     }
 
-    public Alert(int alertID, String nameUser, String message, LocalDateTime date) {
+    public Alert(int alertID, String nameUser, String message, LocalDateTime date, int UserID) {
         this.alertID = alertID;
         this.nameUser = nameUser;
         this.message = message;
         this.date = date;
+        this.UserID = UserID;
     }
 
     public int getAlertID() {
@@ -57,5 +59,14 @@ public class Alert {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+    
     
 }

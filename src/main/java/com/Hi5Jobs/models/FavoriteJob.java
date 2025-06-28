@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 public class FavoriteJob extends Job{
     private int FavoriteJobID;
+    private int UserID;
+    private int JobID;
 
     public FavoriteJob() {
     }
@@ -30,5 +32,23 @@ public class FavoriteJob extends Job{
     public void setFavoriteJobID(int FavoriteJobID) {
         this.FavoriteJobID = FavoriteJobID;
     }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+
+    public int getJobID() {
+        return JobID;
+    }
+
+    public void setJobID(int JobID) {
+        this.JobID = JobID;
+    }
+    
+    
     
 }

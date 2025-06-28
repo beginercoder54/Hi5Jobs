@@ -46,4 +46,19 @@ public class ReportRepo {
         );
     }
 
+    public Report countStats2(LocalDate from, LocalDate to,int userID) {
+        String sql = "SELECT "
+                + "(SELECT COUNT(*) FROM Jobseeker) AS TotalJ, "
+                + "(SELECT COUNT(*) FROM Employer) AS TotalE, "
+                + "(SELECT COUNT(*) FROM Job) AS TotalJob , "
+                + "(SELECT COUNT(*) FROM Application WHERE ApplicationDate BETWEEN ? AND ?) AS Application, "
+                + "(SELECT COUNT(*) FROM Job WHERE UploadDate BETWEEN ? AND ?) AS Job, "
+                + "(SELECT COUNT(*) FROM Resume WHERE UploadDate BETWEEN ? AND ?) AS Resume";
+
+        return jdbcTemplate.queryForObject(sql, this::mapRow,
+                Date.valueOf(from), Date.valueOf(to), // For Application
+                Date.valueOf(from), Date.valueOf(to), // For Job
+                Date.valueOf(from), Date.valueOf(to) // For Resume
+        );
+    }
 }

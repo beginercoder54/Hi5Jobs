@@ -4,14 +4,17 @@
  */
 package com.Hi5Jobs.controller;
 
+import com.Hi5Jobs.models.Alert;
+import com.Hi5Jobs.models.FullLoveJob;
 import com.Hi5Jobs.models.Resume;
 import com.Hi5Jobs.models.User;
+import com.Hi5Jobs.services.AlertService;
+import com.Hi5Jobs.services.FullLoveService;
 import com.Hi5Jobs.services.ResumeService;
 import com.Hi5Jobs.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +36,11 @@ public class ProfileController {
     private UserService userService;
     @Autowired
     private ResumeService resumeService;
-
+    @Autowired
+    private AlertService alertService;
+    @Autowired
+    private FullLoveService service;
+    
     @GetMapping("/profile")
     public String showProfie(HttpSession session, Model model) {
         Integer accountId = (Integer) session.getAttribute("accountID");
@@ -43,7 +50,12 @@ public class ProfileController {
         Integer userID = user.getUserID();
         List<Resume> resumes = resumeService.getByUserID(userID); // ✅ trả về List<Resume>
         model.addAttribute("resumes", resumes); // ✅ đặt tên đúng: resumes
-
+        Integer userId = (Integer) session.getAttribute("userID");
+        List<Alert> a = alertService.getAlertByUserID(userId);
+        model.addAttribute("a", a);
+        
+        List<FullLoveJob> flj = service.getByUserID(userID);
+        model.addAttribute("flj", flj);
         return "client/profile";
     }
 

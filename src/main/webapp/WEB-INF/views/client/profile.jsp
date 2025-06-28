@@ -8,6 +8,52 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            .notification-card {
+                display: flex;
+                background-color: #f1f1f1;
+                padding: 15px;
+                border-radius: 15px;
+                width: fit-content;
+                align-items: center;
+                gap: 15px;
+                font-family: Arial, sans-serif;
+                margin-bottom: 10px;
+            }
+
+            .icon1 {
+                width: 50px;
+                height: 50px;
+                background-color: #5bd6d2;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .icon1 img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .notification-content .title {
+                margin: 0;
+                font-weight: bold;
+                font-size: 16px;
+                color: #000;
+            }
+
+            .notification-content .subtitle {
+                margin: 2px 0;
+                color: #333;
+            }
+
+            .notification-content .date {
+                margin: 0;
+                font-size: 13px;
+                color: #888;
+            }
+        </style>
     </head>
     <body>
 
@@ -89,6 +135,9 @@
                         <li><a href="#" onclick="showSection('personal')">Thông tin cá nhân</a></li>
                         <li><a href="#" onclick="showSection('cv')">Hồ sơ xin việc</a></li>
                         <li><a href="#" onclick="showSection('resume')">Resume</a></li>
+                        <li><a href="#" onclick="showSection('notification')">Thông báo</a></li>
+                        <li><a href="#" onclick="showSection('favorites')">Công việc yêu thích</a></li>
+
                     </ul>
                 </div>
                 <div class = "info-main">
@@ -248,9 +297,56 @@
                             }
                         </style>
                     </div>
+                    <!-- Section Thông báo -->
+                    <div class="section" id="section-notification" style="display: none;">
+                        <h2><strong>Thông báo</strong></h2>
+                        <c:forEach var="a" items="${a}">
+                            <div class="notification-card">
+                                <div class="icon1">
+                                    <img src="${pageContext.request.contextPath}/image/bell.png" alt="notification icon" />
+                                </div>
+                                <div class="notification-content">
+                                    <p class="title">${a.message}</p>
+                                    <p class="subtitle">${a.nameUser}</p>
+                                    <p class="date">
+                                    <fmt:formatDate value="${a.date}" pattern="dd/MM/yyyy HH:mm" />
+                                    </p>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
 
+                    <!-- Section Công việc yêu thích -->
+                    <div class="section" id="section-favorites" style="display: none;">
+                        <h2><strong>Công việc yêu thích</strong></h2>
+                        <div class="job-container">
+                            <c:forEach var="job" items="${flj}">
+                                <div class="job-card" >
+                                    <!-- Avatar bên trái -->
+                                    <div class="job-logo">
+                                        <img class="avatar"
+                                             src="${pageContext.request.contextPath}/image/logo-hi5jobs.png"
+                                             alt="Avatar"/>
+                                    </div>
+
+                                    <!-- Nội dung bên phải -->
+                                    <div class="job-info">
+                                        <div class="title-row">
+                                            <h4>${job.title}</h4><br>
+                                            <a><span class="favorite" >♡</span></a>
+                                        </div>
+                                        <div class="company">${job.companyName}</div>
+                                        <div class="meta">
+                                            <span class="salary">💰 ${job.salary}</span>
+                                            <span class="location">📍 ${job.location}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
         <!-- Modal Update Profile -->

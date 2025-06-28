@@ -16,17 +16,26 @@ public class FullApplicationService {
     @Autowired
     private FullApplicationRepo repo;
 
-     public List<FullApplication> getAll() {
-         return repo.getAll();
+    public List<FullApplication> getAll() {
+        return repo.getAll();
+    }
+
+    public FullApplication getbyID(int resumeID, int userID) {
+        return repo.getbyID(resumeID, userID);
+    }
+
+    public void deleteByApplicationID(int ApplicationID) {
+        repo.deleteByApplicationID(ApplicationID);
+    }
+
+    public List<FullApplication> search(String k) {
+        return repo.search(k);
+    }
+
+    public List<FullApplication> getAppByID(int ID) {
+        return repo.getAppByID(ID);
+    }
+     public int updateApplicationStatus(int applicationID, int status) {
+         return repo.updateApplicationStatus(applicationID, status);
      }
-     
-      public FullApplication getbyID(int resumeID,int userID) {
-          return repo.getbyID(resumeID, userID);
-      }
-       public void deleteByApplicationID(int ApplicationID) {
-           repo.deleteByApplicationID(ApplicationID);
-       }
-        public List<FullApplication> search(String k) {
-            return repo.search(k);
-        }
 }

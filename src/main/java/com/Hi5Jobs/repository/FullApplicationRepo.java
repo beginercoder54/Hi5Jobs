@@ -86,4 +86,22 @@ public class FullApplicationRepo {
         String keywordLike = "%" + k + "%";
         return jdbcTemplate.query(sql, this::mapRow, keywordLike);
     }
+
+    public List<FullApplication> getAppByID(int ID) {
+        String sql = "SELECT a.ApplicationID, a.JobID, a.userID, a.ApplicationDate, a.CoverLetter, a.Notes, a.resumeID,a.Status,"
+                + "r.fileResume, r.UploadDate,u.Name, u.Email, u.PhoneNumber, u.Address,"
+                + "j.Education, j.Experience"
+                + " FROM Application a"
+                + " JOIN Resume r ON a.resumeID = r.resumeID"
+                + " JOIN Jobseeker j ON a.userID = j.UserID"
+                + " JOIN Users u ON j.UserID = u.UserID"
+                + " WHERE a.JobID = ?";
+        return jdbcTemplate.query(sql, this::mapRow, ID);
+    }
+
+    public int updateApplicationStatus(int applicationID, int status) {
+        String sql = "UPDATE Application SET Status = ? WHERE ApplicationID = ?";
+        return jdbcTemplate.update(sql, status, applicationID);
+    }
+
 }
