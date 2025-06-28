@@ -62,5 +62,10 @@ public class ResumeRepository {
         String sql = "SELECT * FROM Resume";
         return jdbcTemplate.query(sql, this::mapRow); // ✅ trả đúng List<Resume>
     }
+    public List<Resume> search(String keyword) {
+        String sql = "SELECT * FROM Resume WHERE resumeID LIKE ? OR UserID LIKE ?";
+        String keywordLike = "%" + keyword + "%";
+        return jdbcTemplate.query(sql, this::mapRow,keywordLike,keywordLike); // ✅ trả đúng List<Resume>
+    }
 
 }

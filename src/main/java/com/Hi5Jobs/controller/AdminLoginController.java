@@ -4,19 +4,18 @@
  */
 package com.Hi5Jobs.controller;
 
+import com.Hi5Jobs.models.FullApplication;
 import com.Hi5Jobs.models.Fulljobseeker;
 import com.Hi5Jobs.models.Job;
 import com.Hi5Jobs.models.Resume;
 import com.Hi5Jobs.models.fullinfoEmployee;
+import com.Hi5Jobs.services.FullApplicationService;
 import com.Hi5Jobs.services.FulljobseekerService;
 import com.Hi5Jobs.services.JobService;
 import com.Hi5Jobs.services.ResumeService;
 import com.Hi5Jobs.services.fullEmployeeService;
 import jakarta.servlet.http.HttpSession;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 public class AdminLoginController {
 
+    @Autowired
+    private FullApplicationService fullappService;
     @Autowired
     private FulljobseekerService fulljobseekerService;
     @Autowired
@@ -182,12 +183,53 @@ public class AdminLoginController {
     }
 
     @GetMapping("/view-resume")
-    public String viewJobseekerCV(@RequestParam("userID") int userID,Model model) {
+    public String viewJobseekerCV(@RequestParam("userID") int userID, Model model) {
         Resume re = resumeService.getResumeById(userID);
         model.addAttribute("re", re);
-         model.addAttribute("body", "/WEB-INF/views/admin/view-resume.jsp");
+        model.addAttribute("body", "/WEB-INF/views/admin/view-resume.jsp");
         return "/admin/layout/main";
 
     }
 
+    @RequestMapping("search-cv")
+    public String searchCV(@RequestParam("keyword") String k, Model model) {
+        List<Resume> re = resumeService.search(k);
+        model.addAttribute("re", re);
+        model.addAttribute("body", "/WEB-INF/views/admin/resume.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/application")
+    public String viewApplication(Model model) {
+        List<FullApplication> app = fullappService.getAll();
+        model.addAttribute("jobseekers", app);
+        model.addAttribute("body", "/WEB-INF/views/admin/application.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/view-application")
+    public String viewapplication(@RequestParam("resumeID") int resumeID, @RequestParam("UserID") int UserID, Model model) {
+        FullApplication app = fullappService.getbyID(resumeID, UserID);
+        model.addAttribute("app", app);
+        model.addAttribute("body", "/WEB-INF/views/admin/view-application.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/delete-application")
+    public String deleteApplication(@RequestParam("applicationID") int ID, Model model) {
+        fullappService.deleteByApplicationID(ID);
+        List<FullApplication> app = fullappService.getAll();
+        model.addAttribute("jobseekers", app);
+        model.addAttribute("body", "/WEB-INF/views/admin/application.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/search-application")
+    public String searchApp(@RequestParam("keyword") String k, Model model) {
+
+        List<FullApplication> app = fullappService.search(k);
+        model.addAttribute("jobseekers", app);
+        model.addAttribute("body", "/WEB-INF/views/admin/application.jsp");
+        return "/admin/layout/main";
+    }
 }

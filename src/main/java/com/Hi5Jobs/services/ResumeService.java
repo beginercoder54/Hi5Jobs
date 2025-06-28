@@ -12,19 +12,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ResumeService {
+
     @Autowired
     private ResumeRepository repo;
-    
+
     public List<Resume> getByUserID(int userID) {
         return repo.getListByUserID(userID);
     }
-    public void save(Resume resume){
+
+    public void save(Resume resume) {
         repo.save(resume);
     }
-     public Resume getResumeById(int resumeID) {
-         return repo.getResumeById(resumeID);
-     }
-      public List<Resume> getAll() {
-          return repo.getAll();
-      }
+
+    public Resume getResumeById(int resumeID) {
+        return repo.getResumeById(resumeID);
+    }
+
+    public List<Resume> getAll() {
+        return repo.getAll();
+    }
+
+    public List<Resume> search(String keyword) {
+        return repo.search(keyword);
+    }
 }

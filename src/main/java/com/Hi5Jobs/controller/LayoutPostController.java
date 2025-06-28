@@ -11,7 +11,6 @@ import com.Hi5Jobs.models.Job;
 import com.Hi5Jobs.models.Resume;
 import java.time.LocalDate;
 import com.Hi5Jobs.models.User;
-import com.Hi5Jobs.services.AppUserService;
 import com.Hi5Jobs.services.ApplicationService;
 import com.Hi5Jobs.services.EmployeeService;
 import com.Hi5Jobs.services.JobService;
@@ -51,9 +50,6 @@ public class LayoutPostController {
 
     @Autowired
     private ApplicationService applicationService;
-
-    @Autowired
-    private AppUserService appuserService;
     @Autowired
     private ResumeService resumeService;
 
