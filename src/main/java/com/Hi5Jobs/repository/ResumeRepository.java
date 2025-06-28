@@ -54,7 +54,13 @@ public class ResumeRepository {
 
     public Resume getResumeById(int resumeID) {
         String sql = "SELECT * FROM Resume WHERE ResumeID = ?";
-         List<Resume> employers = jdbcTemplate.query(sql, this::mapRow, resumeID);
+        List<Resume> employers = jdbcTemplate.query(sql, this::mapRow, resumeID);
         return employers.isEmpty() ? null : employers.get(0);
     }
+
+    public List<Resume> getAll() {
+        String sql = "SELECT * FROM Resume";
+        return jdbcTemplate.query(sql, this::mapRow); // ✅ trả đúng List<Resume>
+    }
+
 }

@@ -60,6 +60,25 @@ public class JobRepository {
 
     public List<Job> getAllJobsbyID(int userID) {
         String sql = "SELECT * FROM Job WHERE UserID = ?";
-        return jdbcTemplate.query(sql, this::mapRow,userID);
+        return jdbcTemplate.query(sql, this::mapRow, userID);
+    }
+
+    public void deleteByJobID(int ID) {
+        String sql4 = "DELETE FROM Job WHERE JobID = ?";
+        jdbcTemplate.update(sql4, ID);
+    }
+
+    public List<Job> searchJobs(String keyword) {
+        String sql = "SELECT u.UserID, u.accountID, u.Name, u.Email, u.PhoneNumber, u.Address,"
+                + " j.JobID, j.Title, j.DecriptionJob, j.Location, j.Salary, j.Requirement, j.Gentle,"
+                + " j.NumberRecruitment, j.UploadDate, j.Status, j.Age, j.salaryType,"
+                + " e.Companyname, e.TaxCode, e.CompanyDecription, e.ImgCompany "
+                + "FROM Job j "
+                + "JOIN Users u ON j.UserID = u.UserID "
+                + "JOIN Employer e ON u.UserID = e.UserID "
+                + "WHERE j.Title LIKE ? OR e.Companyname LIKE ? OR j.JobID LIKE ? OR j.Location LIKE ?";
+
+        String keywordLike = "%" + keyword + "%";
+        return jdbcTemplate.query(sql, this::mapRow, keywordLike, keywordLike, keywordLike, keywordLike);
     }
 }

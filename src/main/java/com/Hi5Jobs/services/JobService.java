@@ -26,4 +26,10 @@ public class JobService {
      public List<Job> getAllJobsbyID(int userID) {
          return repo.getAllJobsbyID(userID);
      }
+     public void deleteByJobID(int ID) {
+         repo.deleteByJobID(ID);
+     }
+      public List<Job> searchJobs(String keyword) {
+          return repo.searchJobs(keyword);
+      }
 }

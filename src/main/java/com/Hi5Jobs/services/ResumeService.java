@@ -24,4 +24,7 @@ public class ResumeService {
      public Resume getResumeById(int resumeID) {
          return repo.getResumeById(resumeID);
      }
+      public List<Resume> getAll() {
+          return repo.getAll();
+      }
 }

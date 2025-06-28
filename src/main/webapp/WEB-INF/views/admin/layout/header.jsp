@@ -11,10 +11,10 @@
             </div>
             <div class="section">
                 <p class="section-title">Quản lý thông tin</p>
-                <div class="item"><a href="#" ><img src="${pageContext.request.contextPath}/image/icon3.png"> Quản lý thông tin tuyển dụng</a></div>
-                <div class="item"><a href="#"><img src="${pageContext.request.contextPath}/image/icon4.png"> Quản lý ứng tuyển</a></div>
-                <div class="item"><a href="${pageContext.request.contextPath}/manage-cv"><img src="${pageContext.request.contextPath}/image/icon6.png"> Quản lý CV</a></div>
-                <div class="item"><a href="${pageContext.request.contextPath}/reports"><img src="${pageContext.request.contextPath}/image/icon7.png"> Báo Cáo</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/admin/job" ><img src="${pageContext.request.contextPath}/image/icon3.png"> Quản lý việc làm</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/admin/application"><img src="${pageContext.request.contextPath}/image/icon4.png"> Quản lý ứng tuyển</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/admin/manage-cv"><img src="${pageContext.request.contextPath}/image/icon6.png"> Quản lý CV</a></div>
+                <div class="item"><a href="${pageContext.request.contextPath}/admin/reports"><img src="${pageContext.request.contextPath}/image/icon7.png"> Báo Cáo</a></div>
             </div>
         </div>
     </div>

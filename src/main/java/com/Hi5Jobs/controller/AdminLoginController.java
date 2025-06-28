@@ -4,12 +4,19 @@
  */
 package com.Hi5Jobs.controller;
 
-import com.Hi5Jobs.models.Employee;
-import com.Hi5Jobs.models.Jobseeker;
-import com.Hi5Jobs.repository.ERepository;
-import com.Hi5Jobs.services.JobseekerService;
+import com.Hi5Jobs.models.Fulljobseeker;
+import com.Hi5Jobs.models.Job;
+import com.Hi5Jobs.models.Resume;
+import com.Hi5Jobs.models.fullinfoEmployee;
+import com.Hi5Jobs.services.FulljobseekerService;
+import com.Hi5Jobs.services.JobService;
+import com.Hi5Jobs.services.ResumeService;
+import com.Hi5Jobs.services.fullEmployeeService;
 import jakarta.servlet.http.HttpSession;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +30,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminLoginController {
 
     @Autowired
-    private JobseekerService jobseekerService;
+    private FulljobseekerService fulljobseekerService;
     @Autowired
-    private ERepository repo;
+    private ResumeService resumeService;
+    @Autowired
+    private fullEmployeeService repo;
+    @Autowired
+    private JobService repojob;
 
     @RequestMapping
     public String showLogin() {
@@ -36,7 +47,7 @@ public class AdminLoginController {
     public String Login(Model model, HttpSession session) {
         String u = (String) session.getAttribute("user");
         if (u != null) {
-            List<Jobseeker> e = jobseekerService.getAllJobSeeker();
+            List<Fulljobseeker> e = fulljobseekerService.getAll();
             model.addAttribute("jobseekers", e);
             model.addAttribute("body", "/WEB-INF/views/admin/home.jsp");
             return "/admin/layout/main";
@@ -50,7 +61,7 @@ public class AdminLoginController {
 
         if ("admin".equals(username) && "123456".equals(password)) {
             session.setAttribute("user", username);
-            List<Jobseeker> e = jobseekerService.getAllJobSeeker();
+            List<Fulljobseeker> e = fulljobseekerService.getAll();
             model.addAttribute("jobseekers", e);
             model.addAttribute("body", "/WEB-INF/views/admin/home.jsp");
             return "/admin/layout/main";
@@ -63,12 +74,120 @@ public class AdminLoginController {
     public String homeRe(Model model, HttpSession session) {
         String u = (String) session.getAttribute("user");
         if (u != null) {
-            List<Employee> e = repo.getAllJobSeeker();
+            List<fullinfoEmployee> e = repo.getAll();
             model.addAttribute("jobseekers", e);
             model.addAttribute("body", "/WEB-INF/views/admin/homeRe.jsp");
             return "/admin/layout/main";
         }
         return "admin/adminlogin";
+    }
+
+    @RequestMapping("/delete-jobseeker")
+    public String deletejobseeker(@RequestParam("UserID") int UserID, @RequestParam("accountID") int accountID, Model model) {
+        fulljobseekerService.deleteByUserID(UserID, accountID);
+        List<Fulljobseeker> e = fulljobseekerService.getAll();
+        model.addAttribute("jobseekers", e);
+        model.addAttribute("body", "/WEB-INF/views/admin/home.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/view-jobseeker")
+    public String viewJobseeker(@RequestParam("userID") int UserID, Model model) {
+        Fulljobseeker f = fulljobseekerService.getByUserID(UserID);
+
+        model.addAttribute("jobseekers", f);
+        List<Resume> re = resumeService.getByUserID(UserID);
+        model.addAttribute("resume", re);
+        model.addAttribute("body", "/WEB-INF/views/admin/view.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/view-employee")
+    public String viewemp(@RequestParam("userID") int UserID, Model model) {
+
+        fullinfoEmployee e = repo.getByID(UserID);
+        model.addAttribute("jobseekers", e);
+
+        Resume re = resumeService.getResumeById(UserID);
+        model.addAttribute("re", re);
+        model.addAttribute("body", "/WEB-INF/views/admin/view-re.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/delete-employee")
+    public String deletemp(@RequestParam("UserID") int UserID, @RequestParam("accountID") int accountID, Model model) {
+        repo.deleteByUserID(UserID, accountID);
+        List<fullinfoEmployee> e = repo.getAll();
+        model.addAttribute("jobseekers", e);
+        model.addAttribute("body", "/WEB-INF/views/admin/homeRe.jsp");
+        return "/admin/layout/main";
+
+    }
+
+    @RequestMapping("/search-jobseekers")
+    public String searchjobseeker(@RequestParam("keyword") String k, Model model) {
+        List<Fulljobseeker> f = fulljobseekerService.searchByKeyword(k);
+        model.addAttribute("jobseekers", f);
+        model.addAttribute("body", "/WEB-INF/views/admin/home.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/search-employee")
+    public String searchRE(@RequestParam("keyword") String k, Model model) {
+        List<fullinfoEmployee> f = repo.searchByKeyword(k);
+        model.addAttribute("jobseekers", f);
+        model.addAttribute("body", "/WEB-INF/views/admin/homeRe.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/job")
+    public String listJob(Model model, HttpSession session) {
+        String u = (String) session.getAttribute("user");
+        if (u != null) {
+            List<Job> j = repojob.getAllJobs();
+            model.addAttribute("jobseekers", j);
+            model.addAttribute("body", "/WEB-INF/views/admin/Job.jsp");
+            return "/admin/layout/main";
+        }
+        return "admin/adminlogin";
+    }
+
+    @RequestMapping("/delete-job")
+    public String deletrjob(@RequestParam("jobID") int jobID, Model model, HttpSession session) {
+        String u = (String) session.getAttribute("user");
+        if (u != null) {
+            repojob.deleteByJobID(jobID);
+            List<Job> j = repojob.getAllJobs();
+            model.addAttribute("jobseekers", j);
+            model.addAttribute("body", "/WEB-INF/views/admin/Job.jsp");
+            return "/admin/layout/main";
+        }
+        return "admin/adminlogin";
+    }
+
+    @RequestMapping("/search-job")
+    public String searchJob(@RequestParam("keyword") String k, Model model) {
+        List<Job> j = repojob.searchJobs(k);
+        model.addAttribute("jobseekers", j);
+        model.addAttribute("body", "/WEB-INF/views/admin/Job.jsp");
+        return "/admin/layout/main";
+    }
+
+    @RequestMapping("/manage-cv")
+    public String manageCV(Model model) {
+        List<Resume> re = resumeService.getAll();
+        model.addAttribute("re", re);
+        model.addAttribute("body", "/WEB-INF/views/admin/resume.jsp");
+        return "/admin/layout/main";
+    }
+
+    @GetMapping("/view-resume")
+    public String viewJobseekerCV(@RequestParam("userID") int userID,Model model) {
+        Resume re = resumeService.getResumeById(userID);
+        model.addAttribute("re", re);
+         model.addAttribute("body", "/WEB-INF/views/admin/view-resume.jsp");
+        return "/admin/layout/main";
+
     }
 
 }

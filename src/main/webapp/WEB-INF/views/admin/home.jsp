@@ -8,30 +8,61 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <h3>Quản lý ứng viên</h3>
+        <!-- Thanh chứa nút "Thêm" và ô tìm kiếm -->
+        <!-- Ô tìm kiếm -->
+        <form action="${pageContext.request.contextPath}/admin/search-jobseekers" method="get">
+            <input type="text" name="keyword" placeholder="Tìm kiếm theo tên, email..."
+                   style="padding: 8px; width: 300px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;">
+            <button type="submit"
+                    style="padding: 8px 12px; background-color: #fbb03b; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Tìm kiếm
+            </button>
+        </form>
         <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse; font-family: Arial;">
-    <thead style="background-color: #fbb03b; color: white;">
-        <tr>
-            <th>UserID</th>
-            <th>Họ tên</th>
-            <th>Email</th>
-            <th>Số điện thoại</th>
-            <th>Học vấn</th>
-            <th>Kinh nghiệm</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="user" items="${jobseekers}">
-            <tr style="background-color: ${status.index % 2 == 0 ? '#fffbe6' : '#ffffff'};">
-                <td>${user.userID}</td>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-                <td>${user.phoneNumber}</td>
-                <td>${user.education}</td>
-                <td>${user.experience}</td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+            <thead style="background-color: #fbb03b; color: white;">
+                <tr>
+                    <th>UserID</th>
+                    <th>accountID</th>
+                    <th>Username</th>
+                    <th>password</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Chỉnh sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="user" items="${jobseekers}">
+                    <tr style="background-color: ${status.index % 2 == 0 ? '#fffbe6' : '#ffffff'};">
+                        <td>${user.userID}</td>
+                        <td>${user.accountID}</td>
+                        <td>${user.username}</td>
+                        <td>${user.password}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phoneNumber}</td>
+                        <td>
+                            <!-- Button view -->
+                            <form action="${pageContext.request.contextPath}/admin/view-jobseeker" method="get" style="display:inline;">
+                                <input type="hidden" name="userID" value="${user.userID}" />
+                                <button type="submit" style="padding: 4px 8px; margin-right: 5px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                                    Xem chi tiet
+                                </button>
+                            </form>
+
+                            <!-- Button Xóa -->
+                            <form action="${pageContext.request.contextPath}/admin/delete-jobseeker?UserID=${user.userID}&accountID=${user.accountID}" method="post" style="display:inline;" 
+                                  onsubmit="return confirm('Bạn có chắc muốn xóa ứng viên này không?');">
+                                <input type="hidden" name="userID" value="${user.userID}" />
+                                <button type="submit" style="padding: 4px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                                    Xóa
+                                </button>
+                            </form>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
     </body>
 </html>
