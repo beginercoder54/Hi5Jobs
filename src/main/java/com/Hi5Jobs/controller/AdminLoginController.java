@@ -7,16 +7,20 @@ package com.Hi5Jobs.controller;
 import com.Hi5Jobs.models.FullApplication;
 import com.Hi5Jobs.models.Fulljobseeker;
 import com.Hi5Jobs.models.Job;
+import com.Hi5Jobs.models.Report;
 import com.Hi5Jobs.models.Resume;
 import com.Hi5Jobs.models.fullinfoEmployee;
 import com.Hi5Jobs.services.FullApplicationService;
 import com.Hi5Jobs.services.FulljobseekerService;
 import com.Hi5Jobs.services.JobService;
+import com.Hi5Jobs.services.ReportService;
 import com.Hi5Jobs.services.ResumeService;
 import com.Hi5Jobs.services.fullEmployeeService;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 public class AdminLoginController {
 
+    @Autowired
+    private ReportService reportService;
     @Autowired
     private FullApplicationService fullappService;
     @Autowired
@@ -232,4 +238,24 @@ public class AdminLoginController {
         model.addAttribute("body", "/WEB-INF/views/admin/application.jsp");
         return "/admin/layout/main";
     }
+
+    @RequestMapping("/reports")
+    public String report(Model model) {
+        Report r = reportService.countStats(LocalDate.now(), LocalDate.now());
+        model.addAttribute("stats", r);
+        model.addAttribute("body", "/WEB-INF/views/admin/report.jsp");
+        return "/admin/layout/main";
+    }
+
+    @GetMapping("/report")
+    public String showReport(@RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            Model model) {
+
+        Report stats = reportService.countStats(from, to);
+        model.addAttribute("stats", stats);
+        model.addAttribute("body", "/WEB-INF/views/admin/report.jsp");
+        return "/admin/layout/main";
+    }
+
 }
